@@ -24,7 +24,7 @@ export const home = (locale: 'de' | 'en'): RequiredDataFromCollectionSlug<'pages
         },
       },
     ],
-    // @ts-ignore
+    // @ts-expect-error string value will be replaced with the actual ID when seeding
     media: '{{IMAGE_1}}',
     richText: {
       root: {
@@ -527,7 +527,7 @@ export const home = (locale: 'de' | 'en'): RequiredDataFromCollectionSlug<'pages
     {
       blockName: 'Media Block',
       blockType: 'mediaBlock',
-      // @ts-ignore
+      // @ts-expect-error string value will be replaced with the actual ID when seeding
       media: '{{IMAGE_2}}',
       position: 'default',
     },
@@ -698,7 +698,7 @@ export const home = (locale: 'de' | 'en'): RequiredDataFromCollectionSlug<'pages
       locale === 'de'
         ? 'Eine Open-Source-Website, erstellt mit Payload und Next.js.'
         : 'An open-source website built with Payload and Next.js.',
-    // @ts-ignore
+    // @ts-expect-error string value will be replaced with the actual ID when seeding
     image: '{{IMAGE_1}}',
     title: locale === 'de' ? 'Payload Website-Vorlage' : 'Payload Website Template',
   },

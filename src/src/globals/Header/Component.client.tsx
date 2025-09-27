@@ -3,12 +3,10 @@ import { useHeaderTheme } from '@/providers/HeaderTheme'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import React, { useEffect, useState, useTransition } from 'react'
-import { useTranslations } from 'next-intl'
 
 import type { Header } from '@/payload-types'
 
 import { Logo } from '@/components/Logo/Logo'
-import { Button } from '@/components/ui/button'
 import { HeaderNav } from './Nav'
 import { useLocale } from 'next-intl'
 import localization from '@/i18n/localization'

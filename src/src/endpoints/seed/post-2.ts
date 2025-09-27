@@ -4,7 +4,7 @@ export const post2: Partial<Post> = {
   slug: 'global-gaze',
   slugLock: false,
   _status: 'published',
-  // @ts-ignore
+  // @ts-expect-error string value will be replaced with the actual ID when seeding
   authors: ['{{AUTHOR}}'],
   content: {
     root: {
@@ -219,7 +219,7 @@ export const post2: Partial<Post> = {
   meta: {
     description:
       'Erforschen Sie das Unerzählte und Übersehene. Ein vergrößerter Blick in die Ecken der Welt, wo jede Geschichte ihren Mittelpunkt verdient.',
-    // @ts-ignore
+    // @ts-expect-error string value will be replaced with the actual ID when seeding
     image: '{{IMAGE_1}}',
     title: 'Globaler Blick: Jenseits der Schlagzeilen',
   },
@@ -231,7 +231,7 @@ export const post2_en: Partial<Post> = {
   slug: 'global-gaze',
   slugLock: false,
   _status: 'published',
-  // @ts-ignore
+  // @ts-expect-error string value will be replaced with the actual ID when seeding
   authors: ['{{AUTHOR}}'],
   content: {
     root: {
@@ -446,7 +446,7 @@ export const post2_en: Partial<Post> = {
   meta: {
     description:
       'Explore the untold and overlooked. A magnified view into the corners of the world, where every story deserves its spotlight.',
-    // @ts-ignore
+    // @ts-expect-error string value will be replaced with the actual ID when seeding
     image: '{{IMAGE_1}}',
     title: 'Global Gaze: Beyond the Headlines',
   },

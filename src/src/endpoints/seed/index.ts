@@ -456,12 +456,12 @@ export const seed = async ({
       createdAt: contactFormData_es.createdAt,
       updatedAt: contactFormData_es.updatedAt,
       confirmationMessage: contactFormData_es.confirmationMessage,
-      // @ts-ignore
+      // @ts-expect-error string value will be replaced with the actual ID when seeding
       fields: contactFormData_es.fields?.map((field, index) => ({
         id: contactForm.fields![index].id,
         ...field,
       })),
-      // @ts-ignore
+      // @ts-expect-error string value will be replaced with the actual ID when seeding
       emails: contactFormData_es.emails?.map((email, index) => ({
         id: contactForm.emails![index].id,
         ...email,

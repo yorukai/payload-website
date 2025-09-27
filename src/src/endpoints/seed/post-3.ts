@@ -4,7 +4,7 @@ export const post3: Partial<Post> = {
   slug: 'dollar-and-sense',
   slugLock: false,
   _status: 'published',
-  // @ts-ignore
+  // @ts-expect-error string value will be replaced with the actual ID when seeding
   authors: ['{{AUTHOR}}'],
   content: {
     root: {
@@ -255,7 +255,7 @@ export const post3: Partial<Post> = {
   },
   meta: {
     description: `Geld ist nicht nur Währung; es ist eine Sprache. Tauchen Sie tief in seine Nuancen ein, wo Strategie auf Intuition im weiten Meer der Finanzen trifft.`,
-    // @ts-ignore
+    // @ts-expect-error string value will be replaced with the actual ID when seeding
     image: '{{IMAGE_1}}',
     title: 'Dollar und Sinn: Die Finanzprognose',
   },
@@ -267,7 +267,7 @@ export const post3_en: Partial<Post> = {
   slug: 'dollar-and-sense',
   slugLock: false,
   _status: 'published',
-  // @ts-ignore
+  // @ts-expect-error string value will be replaced with the actual ID when seeding
   authors: ['{{AUTHOR}}'],
   content: {
     root: {
@@ -518,7 +518,7 @@ export const post3_en: Partial<Post> = {
   },
   meta: {
     description: `Money isn't just currency; it's a language. Dive deep into its nuances, where strategy meets intuition in the vast sea of finance.`,
-    // @ts-ignore
+    // @ts-expect-error string value will be replaced with the actual ID when seeding
     image: '{{IMAGE_1}}',
     title: 'Dollar and Sense: The Financial Forecast',
   },

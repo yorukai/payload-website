@@ -11,7 +11,7 @@ export const contact = (locale: 'de' | 'en'): Partial<Page> => ({
     {
       blockType: 'formBlock',
       enableIntro: true,
-      // @ts-ignore
+      // @ts-expect-error string value will be replaced with the actual ID when seeding
       form: '{{CONTACT_FORM_ID}}',
       introContent: {
         root: {

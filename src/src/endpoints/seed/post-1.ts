@@ -4,7 +4,7 @@ export const post1: Partial<Post> = {
   slug: 'digital-horizons',
   slugLock: false,
   _status: 'published',
-  // @ts-ignore
+  // @ts-expect-error string value will be replaced with the actual ID when seeding
   authors: ['{{AUTHOR}}'],
   content: {
     root: {
@@ -297,7 +297,7 @@ export const post1: Partial<Post> = {
   meta: {
     description:
       'Tauchen Sie ein in die Wunder der modernen Innovation, wo die einzige Konstante der Wandel ist. Eine Reise, bei der Pixel und Daten zusammenkommen, um die Zukunft zu gestalten.',
-    // @ts-ignore
+    // @ts-expect-error string value will be replaced with the actual ID when seeding
     image: '{{IMAGE_1}}',
     title: 'Digitale Horizonte: Ein Blick in die Zukunft',
   },
@@ -309,7 +309,7 @@ export const post1_en: Partial<Post> = {
   slug: 'digital-horizons',
   slugLock: false,
   _status: 'published',
-  // @ts-ignore
+  // @ts-expect-error string value will be replaced with the actual ID when seeding
   authors: ['{{AUTHOR}}'],
   content: {
     root: {
@@ -602,7 +602,7 @@ export const post1_en: Partial<Post> = {
   meta: {
     description:
       'Dive into the marvels of modern innovation, where the only constant is change. A journey where pixels and data converge to craft the future.',
-    // @ts-ignore
+    // @ts-expect-error string value will be replaced with the actual ID when seeding
     image: '{{IMAGE_1}}',
     title: 'Digital Horizons: A Glimpse into Tomorrow',
   },

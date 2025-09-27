@@ -19,7 +19,6 @@ import { getMessages, setRequestLocale } from 'next-intl/server'
 import { NextIntlClientProvider } from 'next-intl'
 import { routing } from '@/i18n/routing'
 import { notFound } from 'next/navigation'
-import localization from '@/i18n/localization'
 import { getServerSideURL } from '@/utilities/getURL'
 
 type Args = {
@@ -31,7 +30,6 @@ type Args = {
 
 export default async function RootLayout({ children, params }: Args) {
   const { locale } = await params
-  const currentLocale = localization.locales.find((loc) => loc.code === locale)
 
   if (!routing.locales.includes(locale as any)) {
     notFound()
