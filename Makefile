@@ -1,6 +1,11 @@
 .SILENT:
 .DEFAULT_GOAL := help
 
+WARNING_COLOR="$$(tput setaf 3)"
+INFO_COLOR="$$(tput setaf 4)"
+TARGET_COLOR="$$(tput setaf 6)"
+CLEAR_STYLE="$$(tput sgr0)"
+
 # Docker Compose configurations
 COMPOSE=docker compose -f docker-compose.yml
 
@@ -13,25 +18,43 @@ EXEC=$(COMPOSE) exec $(PAYLOAD_SERVICE)
 help:
 	@MAKEFILES="$(MAKEFILE_LIST)" bash $(mkfile_dir)generate-makefile-help.sh
 
-## @section Git Hooks
+## @section Project Setup
+
+.PHONY: init
+## Initialize the project
+## This sets up git hooks and initializes the environment file
+init: git-hooks-install init-env
 
 .PHONY: git-hooks-install
-## Install git hooks from .git-hooks directory
-## This sets the git hooks path to .githooks in the repository
+# Install git hooks from .git-hooks directory
+# This sets the git hooks path to .githooks in the repository
 git-hooks-install:
+	echo "- $(INFO_COLOR)Installing git hooks...$(CLEAR_STYLE)"
 	git config core.hooksPath .githooks
 
-.PHONY: git-hooks-uninstall
-## Uninstall git hooks by resetting the git hooks path to default
-git-hooks-uninstall:
-	git config --unset core.hooksPath
+.PHONY: init-env
+# Initialize the environment file from the example and generate random secrets
+init-env:
+	echo "- $(INFO_COLOR)Initializing environment...$(CLEAR_STYLE)"
+	if [ -f src/.env ]; then \
+		echo -e "  $(WARNING_COLOR)Warning$(CLEAR_STYLE): src/.env file already exists. Skipping initialization."; \
+	else \
+		cp src/.env.example src/.env && \
+		payload_secret=$$(openssl rand -base64 32 | tr -dc 'a-zA-Z0-9' | head -c 32) && \
+		cron_secret=$$(openssl rand -base64 32 | tr -dc 'a-zA-Z0-9' | head -c 32) && \
+		preview_secret=$$(openssl rand -base64 32 | tr -dc 'a-zA-Z0-9' | head -c 32) && \
+		sed -i.bak "s|PAYLOAD_SECRET=YOUR_SECRET_HERE|PAYLOAD_SECRET=$$payload_secret|" src/.env && \
+		sed -i.bak "s|CRON_SECRET=YOUR_CRON_SECRET_HERE|CRON_SECRET=$$cron_secret|" src/.env && \
+		sed -i.bak "s|PREVIEW_SECRET=YOUR_SECRET_HERE|PREVIEW_SECRET=$$preview_secret|" src/.env && \
+		rm -f src/.env.bak; \
+	fi
 
 ## @section Docker Development
 
 .PHONY: is-running
 is-running:
-	@if [ "$$(docker compose ps payload -q | wc -l)" -eq 0 ]; then \
-		echo -e "No containers running. Please run \033[0;36mmake start\033[0m first"; \
+	if [ "$$(docker compose ps payload -q | wc -l)" -eq 0 ]; then \
+		echo -e "No containers running. Please run $(TARGET_COLOR)make start$(CLEAR_STYLE) first"; \
 		exit 1; \
 	fi
 

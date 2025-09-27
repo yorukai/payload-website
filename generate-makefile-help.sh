@@ -1,8 +1,8 @@
 #!/bin/bash
-RULE_COLOR="$(tput setaf 6)"
+RULE_COLOR="$(tput setaf 2)"
 SECTION_COLOR="$(tput setaf 3)"
-VARIABLE_COLOR="$(tput setaf 2)"
-VALUE_COLOR="$(tput setaf 1)"
+VARIABLE_COLOR="$(tput setaf 4)"
+VALUE_COLOR="$(tput setaf 8)"
 CLEAR_STYLE="$(tput sgr0)"
 TARGET_STYLED_HELP_NAME="${RULE_COLOR}TARGET${CLEAR_STYLE}"
 ARGUMENTS_HELP_NAME="${VARIABLE_COLOR}ARGUMENT${CLEAR_STYLE}=${VALUE_COLOR}VALUE${CLEAR_STYLE}"
