@@ -1,9 +1,10 @@
 build
-dist / media
+dist/media
 node_modules
 .DS_Store
 .env
 .next
+.pnpm-store
 .vercel
 
 # Payload default media upload directory

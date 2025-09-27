@@ -23,7 +23,6 @@ import { RowLabel as RowLabel_17c6ef4bfe47bfa29d923fb5718170b7 } from '@/globals
 import { RowLabel as RowLabel_e5f2ea2a3ff3620de63526e885e3b034 } from '@/globals/Footer/RowLabel'
 import { default as default_b03dad3eb070065f2bcc5772da88c322 } from '@/admin-components/AfterDashboard'
 import { default as default_1e90f343b5b108a48d83aeb9dad33efe } from '@/admin-components/ResourcesNavLinks'
-import { default as default_185f71803fa6ce84809b292d832fc8ae } from '@/admin-components/BeforeDashboard'
 import { default as default_d68b53194a68faab0aa236db753577f8 } from '@/admin-components/BeforeLogin'
 
 export const importMap = {
@@ -52,6 +51,5 @@ export const importMap = {
   "@/globals/Footer/RowLabel#RowLabel": RowLabel_e5f2ea2a3ff3620de63526e885e3b034,
   "@/admin-components/AfterDashboard#default": default_b03dad3eb070065f2bcc5772da88c322,
   "@/admin-components/ResourcesNavLinks#default": default_1e90f343b5b108a48d83aeb9dad33efe,
-  "@/admin-components/BeforeDashboard#default": default_185f71803fa6ce84809b292d832fc8ae,
   "@/admin-components/BeforeLogin#default": default_d68b53194a68faab0aa236db753577f8
 }

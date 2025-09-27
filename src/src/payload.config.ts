@@ -26,12 +26,7 @@ export default buildConfig({
   admin: {
     components: {
       afterNavLinks: ['@/admin-components/ResourcesNavLinks'],
-      // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below.
       beforeLogin: ['@/admin-components/BeforeLogin'],
-      // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below.
-      beforeDashboard: ['@/admin-components/BeforeDashboard'],
       afterDashboard: ['@/admin-components/AfterDashboard'],
     },
     importMap: {
