@@ -31,7 +31,7 @@ type Args = {
 export default async function RootLayout({ children, params }: Args) {
   const { locale } = await params
 
-  if (!routing.locales.includes(locale as any)) {
+  if (!routing.locales.includes(locale as TypedLocale)) {
     notFound()
   }
   setRequestLocale(locale)
@@ -59,9 +59,9 @@ export default async function RootLayout({ children, params }: Args) {
               }}
             />
 
-            <Header />
+            <Header locale={locale} />
             {children}
-            <Footer />
+            <Footer locale={locale} />
           </NextIntlClientProvider>
         </Providers>
       </body>
