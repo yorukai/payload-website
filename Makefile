@@ -36,7 +36,7 @@ git-hooks-uninstall:
 
 .PHONY: is-running
 is-running:
-	@if [ $$(docker compose ps -q | wc -l) -eq 0 ]; then \
+	@if [ "$$(docker compose ps payload -q | wc -l)" -eq 0 ]; then \
 		echo -e "No containers running. Please run $(COLOUR_BLUE)make start$(END_COLOUR) first"; \
 		exit 1; \
 	fi
