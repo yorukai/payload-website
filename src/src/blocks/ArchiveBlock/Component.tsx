@@ -1,11 +1,10 @@
-import type { ArchiveBlock as ArchiveBlockProps, Post } from '@/payload-types'
+import { CollectionArchive } from '@/components/CollectionArchive'
 
 import RichText from '@/components/RichText'
+import type { ArchiveBlock as ArchiveBlockProps, Post } from '@/payload-types'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
-
-import { CollectionArchive } from '@/components/CollectionArchive'
 
 export const ArchiveBlock: React.FC<
   ArchiveBlockProps & {
@@ -42,14 +41,10 @@ export const ArchiveBlock: React.FC<
     })
 
     posts = fetchedPosts.docs
-  } else {
-    if (selectedDocs?.length) {
-      const filteredSelectedPosts = selectedDocs.map((post) => {
-        if (typeof post.value === 'object') return post.value
-      }) as Post[]
-
-      posts = filteredSelectedPosts
-    }
+  } else if (selectedDocs?.length) {
+    posts = selectedDocs.map((post) => {
+      if (typeof post.value === 'object') return post.value
+    }) as Post[]
   }
 
   return (

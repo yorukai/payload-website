@@ -90,7 +90,7 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
   ]
 
   if (!disableLabel) {
-    linkTypes.map((linkType) => ({
+    linkTypes.forEach((linkType) => ({
       ...linkType,
       admin: {
         ...linkType.admin,

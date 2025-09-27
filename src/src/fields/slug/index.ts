@@ -36,7 +36,7 @@ export const slugField: Slug = (fieldToUse = 'title', overrides = {}) => {
     },
     admin: {
       position: 'sidebar',
-      ...(slugOverrides?.admin || {}),
+      ...(slugOverrides?.admin ?? {}),
       components: {
         Field: {
           path: '@/fields/slug/SlugComponent#SlugComponent',

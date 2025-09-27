@@ -116,6 +116,7 @@ export const FormBlock: React.FC<
   return (
     <div className='container lg:max-w-[48rem]'>
       {enableIntro && introContent && !hasSubmitted && (
+        // @ts-expect-error TS2322 - SerializedEditorState is not assignable to type DefaultTypedEditorState
         <RichText className='mb-8 lg:mb-12' data={introContent} enableGutter={false} />
       )}
       <div className='rounded-[0.8rem] border border-border p-4 lg:p-6'>
@@ -128,27 +129,25 @@ export const FormBlock: React.FC<
           {!hasSubmitted && (
             <form id={formID} onSubmit={handleSubmit(onSubmit)}>
               <div className='mb-4 last:mb-0'>
-                {formFromProps &&
-                  formFromProps.fields &&
-                  formFromProps.fields?.map((field, index) => {
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    const Field: React.FC<any> = fields?.[field.blockType as keyof typeof fields]
-                    if (Field) {
-                      return (
-                        <div className='mb-6 last:mb-0' key={index}>
-                          <Field
-                            form={formFromProps}
-                            {...field}
-                            {...formMethods}
-                            control={control}
-                            errors={errors}
-                            register={register}
-                          />
-                        </div>
-                      )
-                    }
-                    return null
-                  })}
+                {formFromProps?.fields?.map((field, index) => {
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  const Field: React.FC<any> = fields?.[field.blockType as keyof typeof fields]
+                  if (Field) {
+                    return (
+                      <div className='mb-6 last:mb-0' key={index}>
+                        <Field
+                          form={formFromProps}
+                          {...field}
+                          {...formMethods}
+                          control={control}
+                          errors={errors}
+                          register={register}
+                        />
+                      </div>
+                    )
+                  }
+                  return null
+                })}
               </div>
 
               <Button form={formID} type='submit' variant='default'>

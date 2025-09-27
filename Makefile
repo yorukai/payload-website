@@ -54,6 +54,18 @@ stop:
 exec: is-running
 	$(COMPOSE) exec -it $(PAYLOAD_SERVICE) bash
 
+## @section Node.js and PNPM
+
+.PHONY: reinstall-deps
+## Reinstall Node.js dependencies
+reinstall-deps: is-running
+	$(EXEC) pnpm run reinstall
+
+.PHONY: update-deps
+## Update Node.js dependencies
+update-deps: is-running
+	$(EXEC) pnpm run ncu
+
 ## @section Payload
 
 .PHONY: migrate-create
@@ -63,31 +75,31 @@ migrate-create: is-running
 ifndef name
 	$(error name is undefined. Usage: make migrate-create name=<migration_name>)
 endif
-	$(EXEC) pnpm payload migrate:create $$name
+	$(EXEC) pnpm run payload migrate:create $$name
 
 .PHONY: generate-importmap
 ## Generate import map
 generate-importmap: is-running
-	$(EXEC) pnpm payload generate:importmap
+	$(EXEC) pnpm run payload generate:importmap
 
 .PHONY: generate-types
 ## Generate types
 generate-types: is-running
-	$(EXEC) pnpm payload generate:types
+	$(EXEC) pnpm run payload generate:types
 
 ## @section Code Quality
 
 .PHONY: lint
 ## Run linting
 lint:
-	$(EXEC) pnpm lint
+	$(EXEC) pnpm run lint
 
 .PHONY: lint-fix
 ## Run linting and fix issues
 lint-fix:
-	$(EXEC) pnpm lint:fix
+	$(EXEC) pnpm run lint:fix
 
 .PHONY: format
 ## Run code formatting
 format:
-	$(EXEC) pnpm format
+	$(EXEC) pnpm run format

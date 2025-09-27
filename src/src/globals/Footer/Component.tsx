@@ -8,8 +8,12 @@ import { Logo } from '@/components/Logo/Logo'
 import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import { TypedLocale } from 'payload'
 
-export async function Footer({ locale }: { locale: TypedLocale }) {
-  const footerData: Footer = await getCachedGlobal('footer', 1, locale)()
+type Props = {
+  locale: TypedLocale
+}
+
+export async function Footer({ locale }: Readonly<{ locale: TypedLocale }>) {
+  const footerData: Footer = await getCachedGlobal('footer', locale, 1)()
 
   const navItems = footerData?.navItems || []
 

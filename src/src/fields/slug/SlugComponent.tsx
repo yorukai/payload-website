@@ -37,14 +37,14 @@ export const SlugComponent: React.FC<SlugComponentProps> = ({
     (e: React.MouseEvent<Element>) => {
       e.preventDefault()
 
-      const targetFieldValue = getDataByPath(fieldToUse) as string
+      const targetFieldValue = getDataByPath<string>(fieldToUse)
 
       if (targetFieldValue) {
         const formattedSlug = formatSlug(targetFieldValue)
 
         if (value !== formattedSlug) setValue(formattedSlug)
-      } else {
-        if (value !== '') setValue('')
+      } else if (value !== '') {
+        setValue('')
       }
     },
     [setValue, value, fieldToUse, getDataByPath],

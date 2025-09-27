@@ -4,8 +4,12 @@ import { HeaderClient } from './Component.client'
 import type { Header } from '@/payload-types'
 import { TypedLocale } from 'payload'
 
-export async function Header({ locale }: { locale: TypedLocale }) {
-  const header: Header = await getCachedGlobal('header', 1, locale)()
+type Props = {
+  locale: TypedLocale
+}
+
+export async function Header({ locale }: Readonly<Props>) {
+  const header: Header = await getCachedGlobal('header', locale, 1)()
 
   return <HeaderClient data={header} />
 }

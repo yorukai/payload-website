@@ -1,17 +1,15 @@
-import type { Metadata } from 'next'
-
 import { RelatedPosts } from '@/blocks/RelatedPosts/Component'
-import { PayloadRedirects } from '@/components/PayloadRedirects'
-import RichText from '@/components/RichText'
-import configPromise from '@payload-config'
-import { draftMode } from 'next/headers'
-import { getPayload } from 'payload'
-import { cache } from 'react'
 
 import { LivePreviewListener } from '@/components/LivePreviewListener'
+import { PayloadRedirects } from '@/components/PayloadRedirects'
+import RichText from '@/components/RichText'
 import { PostHero } from '@/heros/PostHero'
 import { generateMeta } from '@/utilities/generateMeta'
-import { TypedLocale } from 'payload'
+import configPromise from '@payload-config'
+import type { Metadata } from 'next'
+import { draftMode } from 'next/headers'
+import { getPayload, TypedLocale } from 'payload'
+import { cache } from 'react'
 import PageClient from './page.client'
 
 export async function generateStaticParams() {
@@ -27,11 +25,9 @@ export async function generateStaticParams() {
     },
   })
 
-  const params = posts.docs.map(({ slug }) => {
+  return posts.docs.map(({ slug }) => {
     return { slug }
   })
-
-  return params
 }
 
 type Args = {
