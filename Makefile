@@ -8,12 +8,6 @@ COMPOSE=docker compose -f docker-compose.yml
 PAYLOAD_SERVICE=payload
 EXEC=$(COMPOSE) exec $(PAYLOAD_SERVICE)
 
-# Colours
-COLOUR_GREEN=\033[0;32m
-COLOUR_BLUE=\033[0;34m
-COLOUR_GREY=\033[0;37m
-END_COLOUR=\033[0m
-
 
 .PHONY: help
 help:
@@ -37,7 +31,7 @@ git-hooks-uninstall:
 .PHONY: is-running
 is-running:
 	@if [ "$$(docker compose ps payload -q | wc -l)" -eq 0 ]; then \
-		echo -e "No containers running. Please run $(COLOUR_BLUE)make start$(END_COLOUR) first"; \
+		echo -e "No containers running. Please run \033[0;36mmake start\033[0m first"; \
 		exit 1; \
 	fi
 
