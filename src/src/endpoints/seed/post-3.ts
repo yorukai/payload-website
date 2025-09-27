@@ -525,4 +525,3 @@ export const post3_en: Partial<Post> = {
   relatedPosts: [], // this is populated by the seed script
   title: 'Dollar and Sense: The Financial Forecast',
 }
-

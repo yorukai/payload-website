@@ -39,10 +39,7 @@ export const home = (locale: 'de' | 'en'): RequiredDataFromCollectionSlug<'pages
                 format: 0,
                 mode: 'normal',
                 style: '',
-                text:
-                  locale === 'de'
-                    ? 'Payload Website-Vorlage'
-                    : 'Payload Website Template',
+                text: locale === 'de' ? 'Payload Website-Vorlage' : 'Payload Website Template',
                 version: 1,
               },
             ],
@@ -89,7 +86,7 @@ export const home = (locale: 'de' | 'en'): RequiredDataFromCollectionSlug<'pages
                 style: '',
                 text:
                   locale === 'de'
-                    ? " um mit der Verwaltung der Inhalte dieser Website zu beginnen. Der Code für diese Vorlage ist vollständig Open Source und kann "
+                    ? ' um mit der Verwaltung der Inhalte dieser Website zu beginnen. Der Code für diese Vorlage ist vollständig Open Source und kann '
                     : " to begin managing this site's content. The code for this template is completely open-source and can be found ",
                 version: 1,
               },
@@ -214,7 +211,7 @@ export const home = (locale: 'de' | 'en'): RequiredDataFromCollectionSlug<'pages
                       style: '',
                       text:
                         locale === 'de'
-                          ? "Verwalten Sie die Seiten und Beiträge dieser Website vom "
+                          ? 'Verwalten Sie die Seiten und Beiträge dieser Website vom '
                           : "Manage this site's pages and posts from the ",
                       version: 1,
                     },
@@ -617,7 +614,9 @@ export const home = (locale: 'de' | 'en'): RequiredDataFromCollectionSlug<'pages
                   mode: 'normal',
                   style: '',
                   text:
-                    locale === 'de' ? 'Dies ist ein Aufruf zum Handeln' : 'This is a call to action',
+                    locale === 'de'
+                      ? 'Dies ist ein Aufruf zum Handeln'
+                      : 'This is a call to action',
                   version: 1,
                 },
               ],

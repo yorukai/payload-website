@@ -7,9 +7,6 @@ import React, { useEffect, useState, useTransition } from 'react'
 import type { Header } from '@/payload-types'
 
 import { Logo } from '@/components/Logo/Logo'
-import { HeaderNav } from './Nav'
-import { useLocale } from 'next-intl'
-import localization from '@/i18n/localization'
 import {
   Select,
   SelectContent,
@@ -17,8 +14,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { TypedLocale } from 'payload'
+import localization from '@/i18n/localization'
 import { usePathname, useRouter } from '@/i18n/routing'
+import { useLocale } from 'next-intl'
+import { TypedLocale } from 'payload'
+import { HeaderNav } from './Nav'
 
 interface HeaderClientProps {
   data: Header
@@ -41,9 +41,12 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   }, [headerTheme])
 
   return (
-    <header className="container relative z-20 py-8 flex justify-end gap-2" {...(theme ? { 'data-theme': theme } : {})}>
-      <Link href="/" className="me-auto">
-        <Logo loading="eager" priority="high" className="invert dark:invert-0" />
+    <header
+      className='container relative z-20 flex justify-end gap-2 py-8'
+      {...(theme ? { 'data-theme': theme } : {})}
+    >
+      <Link href='/' className='me-auto'>
+        <Logo loading='eager' priority='high' className='invert dark:invert-0' />
       </Link>
       <LocaleSwitcher />
       <HeaderNav data={data} />
@@ -73,8 +76,8 @@ function LocaleSwitcher() {
 
   return (
     <Select onValueChange={onSelectChange} value={locale}>
-      <SelectTrigger className="w-auto text-sm bg-transparent gap-2 pl-0 md:pl-3 border-none text-primary">
-        <SelectValue placeholder="Theme" />
+      <SelectTrigger className='w-auto gap-2 border-none bg-transparent pl-0 text-sm text-primary md:pl-3'>
+        <SelectValue placeholder='Theme' />
       </SelectTrigger>
       <SelectContent>
         {localization.locales

@@ -14,12 +14,12 @@ import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
 import { TypedLocale } from 'payload'
 
-import './globals.css'
-import { getMessages, setRequestLocale } from 'next-intl/server'
-import { NextIntlClientProvider } from 'next-intl'
 import { routing } from '@/i18n/routing'
-import { notFound } from 'next/navigation'
 import { getServerSideURL } from '@/utilities/getURL'
+import { NextIntlClientProvider } from 'next-intl'
+import { getMessages, setRequestLocale } from 'next-intl/server'
+import { notFound } from 'next/navigation'
+import './globals.css'
 
 type Args = {
   children: React.ReactNode
@@ -47,8 +47,8 @@ export default async function RootLayout({ children, params }: Args) {
     >
       <head>
         <InitTheme />
-        <link href="/favicon.ico" rel="icon" sizes="32x32" />
-        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+        <link href='/favicon.ico' rel='icon' sizes='32x32' />
+        <link href='/favicon.svg' rel='icon' type='image/svg+xml' />
       </head>
       <body>
         <Providers>

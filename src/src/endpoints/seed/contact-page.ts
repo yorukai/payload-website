@@ -26,10 +26,7 @@ export const contact = (locale: 'de' | 'en'): Partial<Page> => ({
                   format: 0,
                   mode: 'normal',
                   style: '',
-                  text:
-                    locale === 'de'
-                      ? 'Beispiel Kontaktformular:'
-                      : 'Example contact form:',
+                  text: locale === 'de' ? 'Beispiel Kontaktformular:' : 'Example contact form:',
                   version: 1,
                 },
               ],

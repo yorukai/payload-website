@@ -609,4 +609,3 @@ export const post1_en: Partial<Post> = {
   relatedPosts: [], // this is populated by the seed script
   title: 'Digital Horizons: A Glimpse into Tomorrow',
 }
-

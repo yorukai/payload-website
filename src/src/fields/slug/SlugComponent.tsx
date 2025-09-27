@@ -1,8 +1,8 @@
 'use client'
-import React, { useCallback } from 'react'
 import { TextFieldClientProps } from 'payload'
+import React, { useCallback } from 'react'
 
-import { useField, Button, TextInput, FieldLabel, useFormFields, useForm } from '@payloadcms/ui'
+import { Button, FieldLabel, TextInput, useField, useForm, useFormFields } from '@payloadcms/ui'
 
 import { formatSlug } from './formatSlug'
 import './index.scss'
@@ -64,15 +64,15 @@ export const SlugComponent: React.FC<SlugComponentProps> = ({
   )
 
   return (
-    <div className="field-type slug-field-component">
-      <div className="label-wrapper">
+    <div className='field-type slug-field-component'>
+      <div className='label-wrapper'>
         <FieldLabel htmlFor={`field-${path}`} label={label} />
         {!isLocked && (
-          <Button className="lock-button" buttonStyle="none" onClick={handleGenerate}>
+          <Button className='lock-button' buttonStyle='none' onClick={handleGenerate}>
             Generate
           </Button>
         )}
-        <Button className="lock-button" buttonStyle="none" onClick={handleLock}>
+        <Button className='lock-button' buttonStyle='none' onClick={handleLock}>
           {isLocked ? 'Unlock' : 'Lock'}
         </Button>
       </div>

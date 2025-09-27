@@ -3,6 +3,7 @@ name: payload-website
 services:
   payload:
     image: ghcr.io/pm-dennis/pnpm:latest
+    hostname: payload
     stdin_open: true
     tty: true
     pull_policy: always
@@ -10,8 +11,6 @@ services:
       - "3000:3000"
     volumes:
       - ./src:/app
-      - pnpm_store:/src/.pnpm-store
-      - node_modules:/src/node_modules
     depends_on:
       - postgres
     command: sh -c "pnpm install && pnpm dev"
@@ -19,9 +18,9 @@ services:
   postgres:
     image: postgres:17-alpine
     environment:
-      POSTGRES_USER: 'payload'
-      POSTGRES_PASSWORD: 'payload'
-      POSTGRES_DB: 'payload'
+      POSTGRES_USER: "payload"
+      POSTGRES_PASSWORD: "payload"
+      POSTGRES_DB: "payload"
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:

@@ -73,7 +73,10 @@ export const contactForm = (locale: 'de' | 'en'): Partial<Form> => ({
           version: 1,
         },
       },
-      subject: locale === 'de' ? 'Sie haben eine neue Nachricht erhalten.' : "You've received a new message.",
+      subject:
+        locale === 'de'
+          ? 'Sie haben eine neue Nachricht erhalten.'
+          : "You've received a new message.",
     },
   ],
   fields: [

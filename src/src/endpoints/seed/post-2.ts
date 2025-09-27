@@ -453,4 +453,3 @@ export const post2_en: Partial<Post> = {
   relatedPosts: [], // this is populated by the seed script
   title: 'Global Gaze: Beyond the Headlines',
 }
-

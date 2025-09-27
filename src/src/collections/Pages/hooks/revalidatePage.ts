@@ -33,7 +33,10 @@ export const revalidatePage: CollectionAfterChangeHook<Page> = ({
   return doc
 }
 
-export const revalidateDelete: CollectionAfterDeleteHook<Page> = ({ doc, req: { context, i18n } }) => {
+export const revalidateDelete: CollectionAfterDeleteHook<Page> = ({
+  doc,
+  req: { context, i18n },
+}) => {
   if (!context.disableRevalidate) {
     const locale = i18n.language
     const path = doc?.slug === 'home' ? `/${locale}` : `/${locale}/${doc?.slug}`

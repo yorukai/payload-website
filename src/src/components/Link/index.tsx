@@ -1,6 +1,6 @@
 import { Button, type ButtonProps } from '@/components/ui/button'
-import { cn } from '@/utilities/ui'
 import { Link as i18nLink } from '@/i18n/routing'
+import { cn } from '@/utilities/ui'
 import React from 'react'
 
 import type { Page, Post } from '@/payload-types'
