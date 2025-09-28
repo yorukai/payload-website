@@ -14,7 +14,7 @@ import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
 import { TypedLocale } from 'payload'
 
-import { routing } from '@/i18n/routing'
+import { Locale, routing } from '@/i18n/routing'
 import { getServerSideURL } from '@/utilities/getURL'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, setRequestLocale } from 'next-intl/server'
@@ -24,16 +24,18 @@ import './globals.css'
 type Args = {
   children: React.ReactNode
   params: Promise<{
-    locale: TypedLocale
+    locale: Locale
   }>
 }
 
 export default async function RootLayout({ children, params }: Args) {
-  const { locale } = await params
+  const { locale: localeParam } = await params
 
-  if (!routing.locales.includes(locale as TypedLocale)) {
+  if (!routing.locales.includes(localeParam)) {
     notFound()
   }
+  const locale: TypedLocale = localeParam as TypedLocale
+
   setRequestLocale(locale)
 
   const { isEnabled } = await draftMode()

@@ -62,7 +62,7 @@ is-running:
 ## Start the development environment
 ## @param detach=true If defined, do not attach to the payload container terminal
 start:
-	$(COMPOSE) --profile dev up -d --force-recreate
+	$(COMPOSE) up -d --force-recreate
 ifndef detach
 	$(COMPOSE) attach $(PAYLOAD_SERVICE)
 endif
@@ -76,6 +76,14 @@ stop:
 ## Open a shell in the payload container
 exec: is-running
 	$(COMPOSE) exec -it $(PAYLOAD_SERVICE) bash
+
+.PHONY: build
+## Build the Project in Production Mode
+build:
+	APP_ENV=prod $(COMPOSE) up -d --force-recreate
+ifndef detach
+	APP_ENV=prod $(COMPOSE) attach $(PAYLOAD_SERVICE)
+endif
 
 ## @section Node.js and PNPM
 

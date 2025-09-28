@@ -12,3 +12,4 @@
 **/temp
 **/docs/**
 tsconfig.json
+next-env.d.ts

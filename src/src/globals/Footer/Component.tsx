@@ -12,7 +12,7 @@ type Props = {
   locale: TypedLocale
 }
 
-export async function Footer({ locale }: Readonly<{ locale: TypedLocale }>) {
+export async function Footer({ locale }: Readonly<Props>) {
   const footerData: Footer = await getCachedGlobal('footer', locale, 1)()
 
   const navItems = footerData?.navItems || []
