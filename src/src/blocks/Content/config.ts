@@ -16,6 +16,10 @@ const columnFields: Field[] = [
     defaultValue: 'oneThird',
     options: [
       {
+        label: 'One Quarter',
+        value: 'oneQuarter',
+      },
+      {
         label: 'One Third',
         value: 'oneThird',
       },
@@ -26,6 +30,10 @@ const columnFields: Field[] = [
       {
         label: 'Two Thirds',
         value: 'twoThirds',
+      },
+      {
+        label: 'Three Quarter',
+        value: 'threeQuarter',
       },
       {
         label: 'Full',

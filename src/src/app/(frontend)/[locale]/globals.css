@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@source inline('lg:col-span-{{4..12..4}}');
+@source inline('lg:col-span-{3,4,8,9,12}');
 @source inline('border-{border,error,success,warning}');
 @source inline('bg-{card,error,success,warning}{,/30}');
 

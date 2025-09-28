@@ -5,3 +5,9 @@
 
 /* Support Payload’s dark mode toggle by adding a custom variant */
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@layer utilities {
+  .table {
+    @apply block;
+  }
+}
