@@ -1,6 +1,16 @@
-#!/bin/sh
+#!/bin/bash
+set -e
+
+ERROR_COLOR=$(tput setaf 1)
+COMMAND_COLOR=$(tput setaf 4)
+RESET_STYLE=$(tput sgr0)
+
 # Check if payload docker is running and if not, print a error message
-[ "$(docker compose ps -q | wc -l)" -eq 0 ] && exit 0
+if [ "$(docker compose ps -q payload | wc -l)" -eq 0 ]; then
+  echo -e "${ERROR_COLOR}Error${RESET_STYLE}: payload docker is not running. In order to execute some git hooks, payload docker must be running. Please start them using the following command:"
+  echo -e "${COMMAND_COLOR}make start${RESET_STYLE}"
+  exit 1
+fi
 
 FILES=$(git diff --cached --name-only --diff-filter=ACMR | grep '^src/' | sed 's| |\\ |g')
 [ -z "$FILES" ] && exit 0
