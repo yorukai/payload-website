@@ -3,7 +3,7 @@
 
 WARNING_COLOR="$$(tput setaf 3)"
 INFO_COLOR="$$(tput setaf 4)"
-TARGET_COLOR="$$(tput setaf 6)"
+TARGET_COLOR="$$(tput setaf 2)"
 CLEAR_STYLE="$$(tput sgr0)"
 
 # Docker Compose configurations

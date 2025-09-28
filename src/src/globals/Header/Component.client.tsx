@@ -42,7 +42,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
 
   return (
     <header
-      className='container relative z-20 flex justify-end gap-2 py-8'
+      className='relative z-20 container flex justify-end gap-2 py-8'
       {...(theme ? { 'data-theme': theme } : {})}
     >
       <Link href='/' className='me-auto'>
@@ -76,7 +76,7 @@ function LocaleSwitcher() {
 
   return (
     <Select onValueChange={onSelectChange} value={locale}>
-      <SelectTrigger className='w-auto gap-2 border-none bg-transparent pl-0 text-sm text-primary md:pl-3'>
+      <SelectTrigger className='text-primary w-auto gap-2 border-none bg-transparent pl-0 text-sm md:pl-3'>
         <SelectValue placeholder='Theme' />
       </SelectTrigger>
       <SelectContent>

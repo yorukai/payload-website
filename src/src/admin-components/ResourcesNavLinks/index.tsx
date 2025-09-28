@@ -32,9 +32,9 @@ const ResourcesNavLinks: React.FC = () => {
   ]
 
   return (
-    <NavGroup key="resources" label="Resources">
+    <NavGroup key='resources' label='Resources'>
       {links.map(({ href, label }: ResourcesLink) => (
-        <Link className="nav__link" href={href} target="_blank" key={label}>
+        <Link className='nav__link' href={href} target='_blank' key={label}>
           {label}
         </Link>
       ))}

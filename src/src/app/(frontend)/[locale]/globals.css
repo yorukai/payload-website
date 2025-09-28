@@ -1,18 +1,89 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@source inline('lg:col-span-{{4..12..4}}');
+@source inline('border-{border,error,success,warning}');
+@source inline('bg-{card,error,success,warning}{,/30}');
+
+@plugin "@tailwindcss/typography";
+@config "../../../../tailwind.config.mjs";
+
+@layer theme, base, components, utilities;
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@theme inline {
+  /*noinspection CssUnresolvedCustomProperty*/
+  --font-sans: var(--font-geist-sans);
+  /*noinspection CssUnresolvedCustomProperty*/
+  --font-mono: var(--font-geist-mono);
+
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --color-success: hsl(var(--success));
+  --color-warning: hsl(var(--warning));
+  --color-error: hsl(var(--error));
+
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 86rem;
+
+  --radius-sm: calc(var(--radius-lg) - 4px);
+  --radius-md: calc(var(--radius-lg) - 2px);
+  --radius-lg: 0.2rem;
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  --prose-h1-size: 2.5rem;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      /*noinspection CssUnresolvedCustomProperty*/
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      /*noinspection CssUnresolvedCustomProperty*/
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+}
 
 @layer base {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-size: unset;
-    font-weight: unset;
-  }
-
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
@@ -84,20 +155,11 @@
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply flex min-h-[100vh] flex-col bg-background text-foreground;
-  }
-}
+@utility container {
+  margin-inline: auto;
+  padding-inline: 1rem;
 
-html {
-  opacity: 0;
-}
-
-html[data-theme='dark'],
-html[data-theme='light'] {
-  opacity: initial;
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
 }

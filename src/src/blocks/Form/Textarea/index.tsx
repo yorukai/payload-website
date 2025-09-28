@@ -21,8 +21,8 @@ export const Textarea: React.FC<
         {label}
 
         {required && (
-          <span className="required">
-            * <span className="sr-only">(required)</span>
+          <span className='required'>
+            * <span className='sr-only'>(required)</span>
           </span>
         )}
       </Label>

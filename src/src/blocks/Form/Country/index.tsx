@@ -24,25 +24,25 @@ export const Country: React.FC<
 > = ({ name, control, errors, label, required, width }) => {
   return (
     <Width width={width}>
-      <Label className="" htmlFor={name}>
+      <Label className='' htmlFor={name}>
         {label}
 
         {required && (
-          <span className="required">
-            * <span className="sr-only">(required)</span>
+          <span className='required'>
+            * <span className='sr-only'>(required)</span>
           </span>
         )}
       </Label>
       <Controller
         control={control}
-        defaultValue=""
+        defaultValue=''
         name={name}
         render={({ field: { onChange, value } }) => {
           const controlledValue = countryOptions.find((t) => t.value === value)
 
           return (
             <Select onValueChange={(val) => onChange(val)} value={controlledValue?.value}>
-              <SelectTrigger className="w-full" id={name}>
+              <SelectTrigger className='w-full' id={name}>
                 <SelectValue placeholder={label} />
               </SelectTrigger>
               <SelectContent>

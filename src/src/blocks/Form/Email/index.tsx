@@ -20,15 +20,15 @@ export const Email: React.FC<
         {label}
 
         {required && (
-          <span className="required">
-            * <span className="sr-only">(required)</span>
+          <span className='required'>
+            * <span className='sr-only'>(required)</span>
           </span>
         )}
       </Label>
       <Input
         defaultValue={defaultValue}
         id={name}
-        type="text"
+        type='text'
         {...register(name, { pattern: /^\S[^\s@]*@\S+$/, required })}
       />
 

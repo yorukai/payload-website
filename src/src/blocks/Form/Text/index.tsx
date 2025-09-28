@@ -20,12 +20,12 @@ export const Text: React.FC<
         {label}
 
         {required && (
-          <span className="required">
-            * <span className="sr-only">(required)</span>
+          <span className='required'>
+            * <span className='sr-only'>(required)</span>
           </span>
         )}
       </Label>
-      <Input defaultValue={defaultValue} id={name} type="text" {...register(name, { required })} />
+      <Input defaultValue={defaultValue} id={name} type='text' {...register(name, { required })} />
       {errors[name] && <Error name={name} />}
     </Width>
   )

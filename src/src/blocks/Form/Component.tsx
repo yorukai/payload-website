@@ -119,7 +119,7 @@ export const FormBlock: React.FC<
         // @ts-expect-error TS2322 - SerializedEditorState is not assignable to type DefaultTypedEditorState
         <RichText className='mb-8 lg:mb-12' data={introContent} enableGutter={false} />
       )}
-      <div className='rounded-[0.8rem] border border-border p-4 lg:p-6'>
+      <div className='border-border rounded-xl border p-4 lg:p-6'>
         <FormProvider {...formMethods}>
           {!isLoading && hasSubmitted && confirmationType === 'message' && (
             <RichText data={confirmationMessage} />

@@ -37,13 +37,14 @@
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-select": "^2.2.6",
     "@radix-ui/react-slot": "^1.2.3",
+    "@tailwindcss/postcss": "^4.1.13",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "cross-env": "^7.0.3",
-    "dotenv": "16.4.7",
+    "cross-env": "^10.0.0",
+    "dotenv": "17.2.2",
     "geist": "^1.5.1",
     "graphql": "^16.11.0",
-    "lucide-react": "^0.378.0",
+    "lucide-react": "^0.544.0",
     "next": "15.5.4",
     "next-intl": "^4.3.9",
     "next-sitemap": "^4.2.3",
@@ -52,9 +53,8 @@
     "react": "19.1.1",
     "react-dom": "19.1.1",
     "react-hook-form": "7.63.0",
-    "sharp": "0.34.2",
-    "tailwind-merge": "^2.6.0",
-    "tailwindcss-animate": "^1.0.7"
+    "sharp": "0.34.4",
+    "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
@@ -63,7 +63,6 @@
     "@types/node": "22.5.4",
     "@types/react": "19.1.14",
     "@types/react-dom": "19.1.9",
-    "autoprefixer": "^10.4.21",
     "copyfiles": "^2.4.1",
     "eslint": "^9.36.0",
     "eslint-config-next": "15.5.4",
@@ -71,7 +70,7 @@
     "prettier": "^3.6.2",
     "prettier-plugin-organize-imports": "^4.3.0",
     "prettier-plugin-tailwindcss": "^0.6.14",
-    "tailwindcss": "^3.4.17",
+    "tailwindcss": "^4.1.13",
     "typescript": "5.9.2"
   },
   "engines": {

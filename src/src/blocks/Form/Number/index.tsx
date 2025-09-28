@@ -19,15 +19,15 @@ export const Number: React.FC<
         {label}
 
         {required && (
-          <span className="required">
-            * <span className="sr-only">(required)</span>
+          <span className='required'>
+            * <span className='sr-only'>(required)</span>
           </span>
         )}
       </Label>
       <Input
         defaultValue={defaultValue}
         id={name}
-        type="number"
+        type='number'
         {...register(name, { required })}
       />
       {errors[name] && <Error name={name} />}
