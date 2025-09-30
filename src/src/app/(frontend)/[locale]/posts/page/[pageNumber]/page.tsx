@@ -1,3 +1,4 @@
+import { getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next/types'
 
 import { CollectionArchive } from '@/components/CollectionArchive'
@@ -19,6 +20,7 @@ type Args = {
 export default async function Page({ params: paramsPromise }: Args) {
   const { pageNumber } = await paramsPromise
   const payload = await getPayload({ config: configPromise })
+  const t = await getTranslations()
 
   const sanitizedPageNumber = Number(pageNumber)
 
@@ -37,7 +39,7 @@ export default async function Page({ params: paramsPromise }: Args) {
       <PageClient />
       <div className='container mb-16'>
         <div className='prose dark:prose-invert max-w-none'>
-          <h1>Posts</h1>
+          <h1>{t('posts')}</h1>
         </div>
       </div>
 

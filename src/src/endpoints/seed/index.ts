@@ -581,7 +581,7 @@ export const seed = async ({
             type: 'custom',
             label: 'Source Code',
             newTab: true,
-            url: 'https://github.com/payloadcms/payload/tree/beta/templates/website',
+            url: 'https://github.com/payloadcms/payload/tree/main/templates/website',
           },
         },
         {
@@ -613,7 +613,7 @@ export const seed = async ({
           id: footer.navItems![1].id,
           link: {
             type: 'custom',
-            url: 'https://github.com/payloadcms/payload/tree/beta/templates/website',
+            url: 'https://github.com/payloadcms/payload/tree/main/templates/website',
             label: 'Source Code',
           },
         },

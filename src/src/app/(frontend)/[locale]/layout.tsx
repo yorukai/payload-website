@@ -3,9 +3,10 @@ import type { Metadata } from 'next'
 import { cn } from '@/utilities/ui'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
+import { unstable_cacheLife as cacheLife } from 'next/cache'
 import React from 'react'
 
-import { AdminBar } from '@/components/AdminBar'
+import { AdminBar } from '@/components/AdminBar/Component'
 import { Footer } from '@/globals/Footer/Component'
 import { Header } from '@/globals/Header/Component'
 import { Providers } from '@/providers'
@@ -21,6 +22,8 @@ import { getMessages, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import './globals.css'
 
+export const experimental_ppr = true
+
 type Args = {
   children: React.ReactNode
   params: Promise<{
@@ -29,6 +32,9 @@ type Args = {
 }
 
 export default async function RootLayout({ children, params }: Args) {
+  'use cache'
+  cacheLife('days')
+
   const { locale: localeParam } = await params
 
   if (!routing.locales.includes(localeParam)) {
