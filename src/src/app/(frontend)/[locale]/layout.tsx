@@ -1,9 +1,9 @@
+import { cacheLife } from '@/utilities/cache'
 import type { Metadata } from 'next'
 
 import { cn } from '@/utilities/ui'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
-import { unstable_cacheLife as cacheLife } from 'next/cache'
 import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar/Component'

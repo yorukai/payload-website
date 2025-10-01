@@ -2,7 +2,7 @@ import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'paylo
 
 import { revalidatePath, revalidateTag } from 'next/cache'
 
-import type { Post } from '../../../payload-types'
+import type { Post } from '@/payload-types'
 
 export const revalidatePost: CollectionAfterChangeHook<Post> = ({
   doc,
@@ -12,7 +12,7 @@ export const revalidatePost: CollectionAfterChangeHook<Post> = ({
   if (!context.disableRevalidate) {
     const locale = i18n.language
     if (doc._status === 'published') {
-      const path = `/posts/${doc.slug}`
+      const path = `/${locale}/posts/${doc.slug}`
 
       payload.logger.info(`Revalidating post at path: ${path}`)
 
