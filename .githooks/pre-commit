@@ -3,6 +3,7 @@ set -e
 
 ERROR_COLOR=$(tput setaf 1)
 COMMAND_COLOR=$(tput setaf 4)
+UNCOMMITTED_COLOR=$(tput setaf 8)
 RESET_STYLE=$(tput sgr0)
 
 # Check if payload docker is running and if not, print a error message
@@ -15,8 +16,18 @@ fi
 FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g')
 [ -z "$FILES" ] && exit 0
 
+# Check if there are uncommitted changes on the selected files and if so, print a error message
+# This prevents adding lines that were not staged from committing after running prettier
+UNCOMMITTED_CHANGES=$(git diff --name-only $FILES)
+if [ -n "$UNCOMMITTED_CHANGES" ]; then
+  echo -e "${ERROR_COLOR}Error${RESET_STYLE}: You have uncommitted changes on the following files:"
+  echo -e "${UNCOMMITTED_COLOR}$UNCOMMITTED_CHANGES${RESET_STYLE}" | sed 's/^/    /'
+  echo -e "Please commit or stash them before running the pre-commit hook."
+  exit 1
+fi
+
 # Prettify all selected files
-echo "$FILES_IN_CONTAINER" | xargs docker compose exec -T payload npx prettier --ignore-unknown --write --color
+echo "$FILES" | xargs docker compose exec -T payload npx prettier --ignore-unknown --write --color
 
 # Add back the modified/prettified files to staging
 echo "$FILES" | xargs git add
