@@ -3,6 +3,8 @@ const SITE_URL =
   process.env.VERCEL_PROJECT_PRODUCTION_URL ||
   'https://example.com'
 
+const LOCALES = ['de', 'en']
+
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
   siteUrl: SITE_URL,
@@ -15,6 +17,6 @@ module.exports = {
         disallow: '/admin/*',
       },
     ],
-    additionalSitemaps: [`${SITE_URL}/pages-sitemap.xml`, `${SITE_URL}/posts-sitemap.xml`],
+    additionalSitemaps: LOCALES.map((locale) => `${SITE_URL}/${locale}/sitemap.xml`),
   },
 }

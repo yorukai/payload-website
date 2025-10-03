@@ -1,9 +1,12 @@
+import { Locale, routing } from '@/i18n/routing'
 import { cacheLife, cacheTag } from '@/utilities/cache'
 import config from '@payload-config'
 import { getServerSideSitemap } from 'next-sitemap'
-import { getPayload } from 'payload'
+import { notFound } from 'next/navigation'
+import { NextRequest } from 'next/server'
+import { getPayload, TypedLocale } from 'payload'
 
-const getPostsSitemap = async () => {
+const getPostsSitemap = async (locale: TypedLocale) => {
   'use cache'
   cacheTag('sitemap', 'posts')
   cacheLife('weeks')
@@ -13,6 +16,7 @@ const getPostsSitemap = async () => {
     process.env.NEXT_PUBLIC_SERVER_URL ||
     process.env.VERCEL_PROJECT_PRODUCTION_URL ||
     'https://example.com'
+  const localeUrl = `${SITE_URL}/${locale}`
 
   const results = await payload.find({
     collection: 'posts',
@@ -38,7 +42,7 @@ const getPostsSitemap = async () => {
     ? results.docs
         .filter((post) => Boolean(post?.slug))
         .map((post) => ({
-          loc: `${SITE_URL}/posts/${post?.slug}`,
+          loc: `${localeUrl}/posts/${post?.slug}`,
           lastmod: post.updatedAt || dateFallback,
         }))
     : []
@@ -46,8 +50,21 @@ const getPostsSitemap = async () => {
   return sitemap
 }
 
-export async function GET() {
-  const sitemap = await getPostsSitemap()
+type Args = {
+  params: Promise<{
+    locale: Locale
+  }>
+}
+
+export async function GET(_: NextRequest, { params: paramsPromise }: Args) {
+  const { locale: localeParam } = await paramsPromise
+
+  if (!routing.locales.includes(localeParam)) {
+    notFound()
+  }
+  const locale: TypedLocale = localeParam as TypedLocale
+
+  const sitemap = await getPostsSitemap(locale)
 
   return getServerSideSitemap(sitemap)
 }
