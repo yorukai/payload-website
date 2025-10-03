@@ -1,3 +1,4 @@
+import { cacheLife } from '@/utilities/cache'
 import type { Metadata } from 'next'
 
 import { cn } from '@/utilities/ui'
@@ -5,35 +6,41 @@ import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
 import React from 'react'
 
-import { AdminBar } from '@/components/AdminBar'
+import { AdminBar } from '@/components/AdminBar/Component'
 import { Footer } from '@/globals/Footer/Component'
 import { Header } from '@/globals/Header/Component'
 import { Providers } from '@/providers'
-import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
 import { TypedLocale } from 'payload'
 
-import { routing } from '@/i18n/routing'
+import { Locale, routing } from '@/i18n/routing'
 import { getServerSideURL } from '@/utilities/getURL'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import './globals.css'
 
+export const experimental_ppr = true
+
 type Args = {
   children: React.ReactNode
   params: Promise<{
-    locale: TypedLocale
+    locale: Locale
   }>
 }
 
 export default async function RootLayout({ children, params }: Args) {
-  const { locale } = await params
+  'use cache'
+  cacheLife('days')
 
-  if (!routing.locales.includes(locale as TypedLocale)) {
+  const { locale: localeParam } = await params
+
+  if (!routing.locales.includes(localeParam)) {
     notFound()
   }
+  const locale: TypedLocale = localeParam as TypedLocale
+
   setRequestLocale(locale)
 
   const { isEnabled } = await draftMode()
@@ -46,7 +53,6 @@ export default async function RootLayout({ children, params }: Args) {
       suppressHydrationWarning
     >
       <head>
-        <InitTheme />
         <link href='/favicon.ico' rel='icon' sizes='32x32' />
         <link href='/favicon.svg' rel='icon' type='image/svg+xml' />
       </head>

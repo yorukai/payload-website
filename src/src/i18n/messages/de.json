@@ -1,6 +1,10 @@
 {
-  "learn-more": "Mehr erfahren",
-
+  "select-locale": "Sprache auswählen",
+  "select-theme": "Erscheinungsbild auswählen",
+  "theme": "Erscheinungsbild",
+  "theme-system": "Automatisch",
+  "theme-light": "Hell",
+  "theme-dark": "Dunkel",
   "date-published": "Veröffentlichungsdatum",
   "author": "Autor",
   "page-not-found": "Diese Seite konnte nicht gefunden werden.",
@@ -11,8 +15,11 @@
   "showing": "Anzeigen",
   "of": "von",
   "search": "Suche",
+  "submit": "Absenden",
   "dashboard": "Dashboard",
   "previous": "Vorherige",
+  "previous-page": "Zur vorherigen Seite",
   "next": "Nächste",
+  "next-page": "Zur nächsten Seite",
   "more-pages": "Weitere Seiten"
 }

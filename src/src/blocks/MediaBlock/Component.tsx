@@ -6,7 +6,7 @@ import React from 'react'
 
 import type { MediaBlock as MediaBlockProps } from '@/payload-types'
 
-import { Media } from '../../components/Media'
+import { Media } from '@/components/Media'
 
 type Props = MediaBlockProps & {
   captionClassName?: string

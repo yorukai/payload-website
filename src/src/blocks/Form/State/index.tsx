@@ -41,7 +41,7 @@ export const State: React.FC<
 
           return (
             <Select onValueChange={(val) => onChange(val)} value={controlledValue?.value}>
-              <SelectTrigger className='w-full' id={name}>
+              <SelectTrigger className='w-full' id={name} aira-label={label}>
                 <SelectValue placeholder={label} />
               </SelectTrigger>
               <SelectContent>

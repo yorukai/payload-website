@@ -1,3 +1,4 @@
+import { cacheLife, cacheTag, noStore } from '@/utilities/cache'
 import type { Metadata } from 'next'
 
 import { PayloadRedirects } from '@/components/PayloadRedirects'
@@ -27,15 +28,13 @@ export async function generateStaticParams() {
     },
   })
 
-  const params = pages.docs
+  return pages.docs
     ?.filter((doc) => {
       return doc.slug !== 'home'
     })
     .map(({ slug }) => {
       return { slug }
     })
-
-  return params
 }
 
 type Args = {
@@ -46,8 +45,18 @@ type Args = {
 }
 
 export default async function Page({ params: paramsPromise }: Args) {
+  'use cache'
+
   const { isEnabled: draft } = await draftMode()
   const { slug = 'home', locale = 'de' } = await paramsPromise
+
+  if (draft) {
+    noStore()
+  } else {
+    cacheTag('page', slug)
+    cacheLife('days')
+  }
+
   const url = '/' + slug
 
   let page: RequiredDataFromCollectionSlug<'pages'> | null

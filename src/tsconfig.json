@@ -13,7 +13,7 @@
     "skipLibCheck": true,
     "noEmit": true,
     "incremental": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
@@ -33,7 +33,7 @@
       ],
       "@/*": [
         "./src/*"
-      ],
+      ]
     }
   },
   "include": [
@@ -47,5 +47,5 @@
   ],
   "exclude": [
     "node_modules"
-  ],
+  ]
 }

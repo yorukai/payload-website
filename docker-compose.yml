@@ -9,11 +9,13 @@ services:
     pull_policy: always
     ports:
       - "3000:3000"
+      - "9229:9229"
+      - "9230:9230"
     volumes:
       - ./src:/app
     depends_on:
       - postgres
-    command: sh -c "pnpm install && pnpm run dev"
+    command: sh -c 'pnpm install && [ "${APP_ENV:-dev}" = "prod" ] && pnpm dev:prod || pnpm dev'
 
   postgres:
     image: postgres:17-alpine

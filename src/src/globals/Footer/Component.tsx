@@ -5,14 +5,14 @@ import type { Footer } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
 import { Logo } from '@/components/Logo/Logo'
-import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
+import { ThemeSelector } from '@/providers/Theme/ThemeSelector/Component'
 import { TypedLocale } from 'payload'
 
 type Props = {
   locale: TypedLocale
 }
 
-export async function Footer({ locale }: Readonly<{ locale: TypedLocale }>) {
+export async function Footer({ locale }: Readonly<Props>) {
   const footerData: Footer = await getCachedGlobal('footer', locale, 1)()
 
   const navItems = footerData?.navItems || []
@@ -20,7 +20,7 @@ export async function Footer({ locale }: Readonly<{ locale: TypedLocale }>) {
   return (
     <footer className='border-border dark:bg-card mt-auto border-t bg-black text-white'>
       <div className='container flex flex-col gap-8 py-8 md:flex-row md:justify-between'>
-        <Link className='flex items-center' href='/src/public'>
+        <Link className='flex items-center' href={`/${locale}`}>
           <Logo />
         </Link>
 

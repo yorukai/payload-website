@@ -38,22 +38,18 @@ const AfterDashboard: React.FC = () => {
     try {
       toast.promise(
         new Promise((resolve, reject) => {
-          try {
-            fetch('/next/seed', { method: 'POST', credentials: 'include' })
-              .then((res) => {
-                if (res.ok) {
-                  resolve(true)
-                  setSeeded(true)
-                } else {
-                  reject('An error occurred while seeding.')
-                }
-              })
-              .catch((error) => {
-                reject(error)
-              })
-          } catch (error) {
-            reject(error)
-          }
+          fetch('/next/seed', { method: 'POST', credentials: 'include' })
+            .then((res) => {
+              if (res.ok) {
+                resolve(true)
+                setSeeded(true)
+              } else {
+                reject(new Error('An error occurred while seeding.'))
+              }
+            })
+            .catch((error) => {
+              reject(error instanceof Error ? error : new Error(String(error)))
+            })
         }),
         {
           loading: 'Seeding with data....',

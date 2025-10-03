@@ -1,8 +1,8 @@
 import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'payload'
 
-import { revalidatePath, revalidateTag } from 'next/cache'
+import { revalidatePath, revalidateTag } from '@/utilities/cache'
 
-import type { Page } from '../../../payload-types'
+import type { Page } from '@/payload-types'
 
 export const revalidatePage: CollectionAfterChangeHook<Page> = ({
   doc,
@@ -12,12 +12,13 @@ export const revalidatePage: CollectionAfterChangeHook<Page> = ({
   if (!context.disableRevalidate) {
     const locale = i18n.language
     if (doc._status === 'published') {
-      const path = doc.slug === 'home' ? '/' : `/${doc.slug}`
+      const path = doc.slug === 'home' ? '/${locale}' : `/${locale}/${doc.slug}`
 
       payload.logger.info(`Revalidating page at path: ${path}`)
 
       revalidatePath(path)
-      revalidateTag('pages-sitemap')
+      if (doc.slug) revalidateTag('page', doc.slug)
+      revalidateTag('sitemap', 'pages')
     }
 
     // If the page was previously published, we need to revalidate the old path
@@ -27,7 +28,8 @@ export const revalidatePage: CollectionAfterChangeHook<Page> = ({
       payload.logger.info(`Revalidating old page at path: ${oldPath}`)
 
       revalidatePath(oldPath)
-      revalidateTag('pages-sitemap')
+      if (previousDoc.slug) revalidateTag('page', previousDoc.slug)
+      revalidateTag('sitemap', 'pages')
     }
   }
   return doc
@@ -41,7 +43,8 @@ export const revalidateDelete: CollectionAfterDeleteHook<Page> = ({
     const locale = i18n.language
     const path = doc?.slug === 'home' ? `/${locale}` : `/${locale}/${doc?.slug}`
     revalidatePath(path)
-    revalidateTag('pages-sitemap')
+    if (doc?.slug) revalidateTag('page', doc.slug)
+    revalidateTag('sitemap', 'pages')
   }
 
   return doc

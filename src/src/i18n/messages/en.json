@@ -1,6 +1,10 @@
 {
-  "learn-more": "Learn more",
-
+  "select-locale": "Select a locale",
+  "select-theme": "Select a theme",
+  "theme": "Theme",
+  "theme-system": "Auto",
+  "theme-light": "Light",
+  "theme-dark": "Dark",
   "date-published": "Date Published",
   "author": "Author",
   "page-not-found": "This page could not be found.",
@@ -11,8 +15,11 @@
   "showing": "Showing",
   "of": "of",
   "search": "Search",
+  "submit": "Submit",
   "dashboard": "Dashboard",
   "previous": "Previous",
+  "previous-page": "Go to previous page",
   "next": "Next",
+  "next-page": "Go to next page",
   "more-pages": "More pages"
 }

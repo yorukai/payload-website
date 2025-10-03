@@ -4,7 +4,7 @@ import React from 'react'
 
 import type { ContentBlock as ContentBlockProps } from '@/payload-types'
 
-import { CMSLink } from '../../components/Link'
+import { CMSLink } from '@/components/Link'
 
 export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
   const { columns } = props

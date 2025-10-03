@@ -1,3 +1,4 @@
+import { TypedLocale } from 'payload'
 import React from 'react'
 import { formatDateTime } from 'src/utilities/formatDateTime'
 
@@ -5,21 +6,22 @@ import type { Post } from '@/payload-types'
 
 import { Media } from '@/components/Media'
 import { formatAuthors } from '@/utilities/formatAuthors'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 
 export const PostHero: React.FC<{
   post: Post
-}> = ({ post }) => {
+  locale: TypedLocale
+}> = async ({ post, locale }) => {
   const { categories, heroImage, populatedAuthors, publishedAt, title } = post
-  const t = useTranslations()
+  const t = await getTranslations({ locale })
 
   const hasAuthors =
     populatedAuthors && populatedAuthors.length > 0 && formatAuthors(populatedAuthors) !== ''
 
   return (
-    <div className='relative -mt-[10.4rem] flex items-end'>
+    <div className='relative -mt-[10.5rem] flex items-end'>
       <div className='relative z-10 container pb-8 text-white lg:grid lg:grid-cols-[1fr_48rem_1fr]'>
-        <div className='col-span-1 col-start-1 md:col-span-2 md:col-start-2'>
+        <div className='lg:col-span-1 lg:col-start-2'>
           <div className='mb-6 text-sm uppercase'>
             {categories?.map((category, index) => {
               if (typeof category === 'object' && category !== null) {
