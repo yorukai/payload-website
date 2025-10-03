@@ -1,10 +1,15 @@
 .SILENT:
 .DEFAULT_GOAL := help
 
+PROGRESS_COLOR="$$(tput setaf 7)"
 WARNING_COLOR="$$(tput setaf 3)"
-INFO_COLOR="$$(tput setaf 4)"
+SUCCESS_COLOR="$$(tput setaf 2)"
 TARGET_COLOR="$$(tput setaf 2)"
 CLEAR_STYLE="$$(tput sgr0)"
+
+PROGRESS_ICON="$(PROGRESS_COLOR)○$(CLEAR_STYLE)"
+WARNING_ICON="$(WARNING_COLOR)⚠$(CLEAR_STYLE)"
+SUCCESS_ICON="$(SUCCESS_COLOR)✓$(CLEAR_STYLE)"
 
 # Docker Compose configurations
 COMPOSE=docker compose -f docker-compose.yml
@@ -29,15 +34,17 @@ init: git-hooks-install init-env
 # Install git hooks from .git-hooks directory
 # This sets the git hooks path to .githooks in the repository
 git-hooks-install:
-	echo "- $(INFO_COLOR)Installing git hooks...$(CLEAR_STYLE)"
+	echo " $(PROGRESS_ICON) Installing git hooks..."
 	git config core.hooksPath .githooks
+	echo -e "\e[1A $(SUCCESS_ICON) "
 
 .PHONY: init-env
 # Initialize the environment file from the example and generate random secrets
 init-env:
-	echo "- $(INFO_COLOR)Initializing environment...$(CLEAR_STYLE)"
+	echo " $(PROGRESS_ICON) Initializing environment..."
 	if [ -f .env ]; then \
-		echo -e "  $(WARNING_COLOR)Warning$(CLEAR_STYLE): .env file already exists. Skipping initialization."; \
+		echo -e "\e[1A $(WARNING_ICON) " && \
+		echo -e "   $(WARNING_COLOR)Warning$(CLEAR_STYLE): .env file already exists. Skipping initialization."; \
 	else \
 		cp .env.example .env && \
 		payload_secret=$$(openssl rand -base64 32 | tr -dc 'a-zA-Z0-9' | head -c 32) && \
@@ -46,7 +53,8 @@ init-env:
 		sed -i.bak "s|PAYLOAD_SECRET=YOUR_SECRET_HERE|PAYLOAD_SECRET=$$payload_secret|" .env && \
 		sed -i.bak "s|CRON_SECRET=YOUR_CRON_SECRET_HERE|CRON_SECRET=$$cron_secret|" .env && \
 		sed -i.bak "s|PREVIEW_SECRET=YOUR_SECRET_HERE|PREVIEW_SECRET=$$preview_secret|" .env && \
-		rm -f .env.bak; \
+		rm -f .env.bak && \
+		echo -e "\e[1A $(SUCCESS_ICON) "; \
 	fi
 
 ## @section Docker Development
