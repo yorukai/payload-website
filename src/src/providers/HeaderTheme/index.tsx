@@ -2,7 +2,7 @@
 
 import { useTheme } from '@/providers/Theme'
 
-import React, { createContext, use, useEffect, useMemo, useState } from 'react'
+import React, { createContext, use, useMemo, useState } from 'react'
 
 import canUseDOM from '@/utilities/canUseDOM'
 
@@ -19,14 +19,9 @@ const initialContext: ContextType = {
 const HeaderThemeContext = createContext(initialContext)
 
 export const HeaderThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [mounted, setMounted] = useState(false)
   const { theme } = useTheme()
 
   const [headerTheme, setHeaderTheme] = useState<string | undefined>(canUseDOM ? theme : undefined)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
 
   const headerThemeMemo = useMemo(
     () => ({
@@ -35,9 +30,6 @@ export const HeaderThemeProvider = ({ children }: { children: React.ReactNode })
     }),
     [headerTheme],
   )
-
-  // Prevents hydration mismatch
-  if (!mounted) return null
 
   return <HeaderThemeContext value={headerThemeMemo}>{children}</HeaderThemeContext>
 }
