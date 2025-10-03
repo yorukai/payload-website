@@ -12,11 +12,8 @@ if [ "$(docker compose ps -q payload | wc -l)" -eq 0 ]; then
   exit 1
 fi
 
-FILES=$(git diff --cached --name-only --diff-filter=ACMR | grep '^src/' | sed 's| |\\ |g')
+FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g')
 [ -z "$FILES" ] && exit 0
-
-# Remove leading 'src/' from paths because container mounts src at /app
-FILES_IN_CONTAINER=$(echo "$FILES" | sed 's|^src/||')
 
 # Prettify all selected files
 echo "$FILES_IN_CONTAINER" | xargs docker compose exec -T payload npx prettier --ignore-unknown --write --color
