@@ -2,7 +2,7 @@
   "select-locale": "Select a locale",
   "select-theme": "Select a theme",
   "theme": "Theme",
-  "theme-auto": "Auto",
+  "theme-system": "Auto",
   "theme-light": "Light",
   "theme-dark": "Dark",
   "date-published": "Date Published",

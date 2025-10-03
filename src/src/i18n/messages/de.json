@@ -2,7 +2,7 @@
   "select-locale": "Sprache auswählen",
   "select-theme": "Erscheinungsbild auswählen",
   "theme": "Erscheinungsbild",
-  "theme-auto": "Automatisch",
+  "theme-system": "Automatisch",
   "theme-light": "Hell",
   "theme-dark": "Dunkel",
   "date-published": "Veröffentlichungsdatum",

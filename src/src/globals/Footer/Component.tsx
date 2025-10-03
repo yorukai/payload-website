@@ -5,7 +5,7 @@ import type { Footer } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
 import { Logo } from '@/components/Logo/Logo'
-import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
+import { ThemeSelector } from '@/providers/Theme/ThemeSelector/Component'
 import { TypedLocale } from 'payload'
 
 type Props = {

@@ -1,14 +1,14 @@
 'use client'
 
-import type { Theme } from '@/providers/Theme/types'
+import { useTheme } from '@/providers/Theme'
 
-import React, { createContext, use, useCallback, useState } from 'react'
+import React, { createContext, use, useEffect, useMemo, useState } from 'react'
 
 import canUseDOM from '@/utilities/canUseDOM'
 
 export interface ContextType {
-  headerTheme?: Theme | null
-  setHeaderTheme: (theme: Theme | null) => void
+  headerTheme?: string | undefined
+  setHeaderTheme: (theme: string | undefined) => void
 }
 
 const initialContext: ContextType = {
@@ -19,15 +19,27 @@ const initialContext: ContextType = {
 const HeaderThemeContext = createContext(initialContext)
 
 export const HeaderThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [headerTheme, setThemeState] = useState<Theme | undefined | null>(
-    canUseDOM ? (document.documentElement.getAttribute('data-theme') as Theme) : undefined,
-  )
+  const [mounted, setMounted] = useState(false)
+  const { theme } = useTheme()
 
-  const setHeaderTheme = useCallback((themeToSet: Theme | null) => {
-    setThemeState(themeToSet)
+  const [headerTheme, setHeaderTheme] = useState<string | undefined>(canUseDOM ? theme : undefined)
+
+  useEffect(() => {
+    setMounted(true)
   }, [])
 
-  return <HeaderThemeContext value={{ headerTheme, setHeaderTheme }}>{children}</HeaderThemeContext>
+  const headerThemeMemo = useMemo(
+    () => ({
+      headerTheme,
+      setHeaderTheme,
+    }),
+    [headerTheme],
+  )
+
+  // Prevents hydration mismatch
+  if (!mounted) return null
+
+  return <HeaderThemeContext value={headerThemeMemo}>{children}</HeaderThemeContext>
 }
 
 export const useHeaderTheme = (): ContextType => use(HeaderThemeContext)

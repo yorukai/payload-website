@@ -15,7 +15,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ children }) => {
   const pathname = usePathname()
 
   useEffect(() => {
-    setHeaderTheme(null)
+    setHeaderTheme(undefined)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname])
 
