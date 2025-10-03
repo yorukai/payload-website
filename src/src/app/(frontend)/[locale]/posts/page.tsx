@@ -1,15 +1,13 @@
+import { cacheLife, cacheTag } from '@/utilities/cache'
+import { getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next/types'
 
 import { CollectionArchive } from '@/components/CollectionArchive'
 import { PageRange } from '@/components/PageRange'
 import { Pagination } from '@/components/Pagination'
 import configPromise from '@payload-config'
-import { getTranslations } from 'next-intl/server'
 import { getPayload, TypedLocale } from 'payload'
 import PageClient from './page.client'
-
-export const dynamic = 'force-static'
-export const revalidate = 600
 
 type Args = {
   params: Promise<{
@@ -18,8 +16,12 @@ type Args = {
 }
 
 export default async function Page({ params }: Args) {
+  'use cache'
+  cacheTag('posts')
+  cacheLife('days')
+
   const { locale = 'de' } = await params
-  const t = await getTranslations()
+  const t = await getTranslations({ locale })
   const payload = await getPayload({ config: configPromise })
 
   const posts = await payload.find({
@@ -47,6 +49,7 @@ export default async function Page({ params }: Args) {
 
       <div className='container mb-8'>
         <PageRange
+          locale={locale}
           collection='posts'
           currentPage={posts.page}
           limit={12}
@@ -58,7 +61,7 @@ export default async function Page({ params }: Args) {
 
       <div className='container'>
         {posts.totalPages > 1 && posts.page && (
-          <Pagination page={posts.page} totalPages={posts.totalPages} />
+          <Pagination locale={locale} page={posts.page} totalPages={posts.totalPages} />
         )}
       </div>
     </div>

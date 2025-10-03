@@ -1,4 +1,5 @@
-import { useTranslations } from 'next-intl'
+import { Locale } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import React from 'react'
 
 const defaultLabels = {
@@ -14,6 +15,7 @@ const defaultCollectionLabels = {
 }
 
 export const PageRange: React.FC<{
+  locale: Locale
   className?: string
   collection?: keyof typeof defaultCollectionLabels
   collectionLabels?: {
@@ -23,8 +25,9 @@ export const PageRange: React.FC<{
   currentPage?: number
   limit?: number
   totalDocs?: number
-}> = (props) => {
+}> = async (props) => {
   const {
+    locale,
     className,
     collection,
     collectionLabels: collectionLabelsFromProps,
@@ -32,7 +35,7 @@ export const PageRange: React.FC<{
     limit,
     totalDocs,
   } = props
-  const t = useTranslations()
+  const t = await getTranslations({ locale })
 
   let indexStart = (currentPage ? currentPage - 1 : 1) * (limit || 1) + 1
   if (totalDocs && indexStart > totalDocs) indexStart = 0

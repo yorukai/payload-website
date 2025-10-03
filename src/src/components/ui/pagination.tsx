@@ -1,9 +1,11 @@
+'use client'
 import type { ButtonProps } from '@/components/ui/button'
 
 import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/utilities/ui'
 import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react'
-import { getTranslations } from 'next-intl/server'
+import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/navigation'
 import * as React from 'react'
 
 const Pagination = ({ className, ...props }: React.ComponentProps<'nav'>) => (
@@ -27,33 +29,49 @@ const PaginationItem: React.FC<
 
 type PaginationLinkProps = {
   isActive?: boolean
+  url: string
 } & Pick<ButtonProps, 'size'> &
   React.ComponentProps<'button'>
 
-const PaginationLink = ({ className, isActive, size = 'icon', ...props }: PaginationLinkProps) => (
-  <button
-    aria-current={isActive ? 'page' : undefined}
-    className={cn(
-      buttonVariants({
-        size,
-        variant: isActive ? 'outline' : 'ghost',
-      }),
-      className,
-    )}
-    {...props}
-  />
-)
-
-const PaginationPrevious = async ({
+const PaginationLink = ({
   className,
+  isActive,
+  url,
+  size = 'icon',
+  ...props
+}: PaginationLinkProps) => {
+  const router = useRouter()
+
+  return (
+    <button
+      aria-current={isActive ? 'page' : undefined}
+      className={cn(
+        buttonVariants({
+          size,
+          variant: isActive ? 'outline' : 'ghost',
+        }),
+        className,
+      )}
+      onClick={() => {
+        router.push(url)
+      }}
+      {...props}
+    />
+  )
+}
+
+const PaginationPrevious = ({
+  className,
+  url,
   ...props
 }: React.ComponentProps<typeof PaginationLink>) => {
-  const t = await getTranslations()
+  const t = useTranslations()
 
   return (
     <PaginationLink
       aria-label={t('previous-page')}
       className={cn('gap-1 pl-2.5', className)}
+      url={url}
       size='default'
       {...props}
     >
@@ -63,16 +81,18 @@ const PaginationPrevious = async ({
   )
 }
 
-const PaginationNext = async ({
+const PaginationNext = ({
   className,
+  url,
   ...props
 }: React.ComponentProps<typeof PaginationLink>) => {
-  const t = await getTranslations()
+  const t = useTranslations()
 
   return (
     <PaginationLink
       aria-label={t('next-page')}
       className={cn('gap-1 pr-2.5', className)}
+      url={url}
       size='default'
       {...props}
     >
@@ -82,8 +102,8 @@ const PaginationNext = async ({
   )
 }
 
-const PaginationEllipsis = async ({ className, ...props }: React.ComponentProps<'span'>) => {
-  const t = await getTranslations()
+const PaginationEllipsis = ({ className, ...props }: React.ComponentProps<'span'>) => {
+  const t = useTranslations()
 
   return (
     <span

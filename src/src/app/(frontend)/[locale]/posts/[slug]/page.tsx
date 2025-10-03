@@ -4,6 +4,7 @@ import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import RichText from '@/components/RichText'
 import { PostHero } from '@/heros/PostHero'
+import { cacheLife, cacheTag, noStore } from '@/utilities/cache'
 import { generateMeta } from '@/utilities/generateMeta'
 import configPromise from '@payload-config'
 import type { Metadata } from 'next'
@@ -38,8 +39,18 @@ type Args = {
 }
 
 export default async function Post({ params: paramsPromise }: Args) {
+  'use cache'
+
   const { isEnabled: draft } = await draftMode()
   const { slug = '', locale = 'de' } = await paramsPromise
+
+  if (draft) {
+    noStore()
+  } else {
+    cacheTag('post', slug)
+    cacheLife('days')
+  }
+
   const url = '/posts/' + slug
   const post = await queryPost({ slug, locale })
 
@@ -54,7 +65,7 @@ export default async function Post({ params: paramsPromise }: Args) {
 
       {draft && <LivePreviewListener />}
 
-      <PostHero post={post} />
+      <PostHero post={post} locale={locale} />
 
       <div className='flex flex-col items-center gap-4 pt-8'>
         <div className='container'>

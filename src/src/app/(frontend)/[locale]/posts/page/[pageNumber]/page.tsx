@@ -1,3 +1,4 @@
+import { cacheLife, cacheTag } from '@/utilities/cache'
 import { getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next/types'
 
@@ -6,21 +7,26 @@ import { PageRange } from '@/components/PageRange'
 import { Pagination } from '@/components/Pagination'
 import configPromise from '@payload-config'
 import { notFound } from 'next/navigation'
-import { getPayload } from 'payload'
+import { getPayload, TypedLocale } from 'payload'
 import PageClient from './page.client'
 
 export const revalidate = 600
 
 type Args = {
   params: Promise<{
+    locale: TypedLocale
     pageNumber: string
   }>
 }
 
 export default async function Page({ params: paramsPromise }: Args) {
-  const { pageNumber } = await paramsPromise
+  'use cache'
+  cacheTag('posts')
+  cacheLife('days')
+
+  const { locale, pageNumber } = await paramsPromise
   const payload = await getPayload({ config: configPromise })
-  const t = await getTranslations()
+  const t = await getTranslations({ locale })
 
   const sanitizedPageNumber = Number(pageNumber)
 
@@ -45,6 +51,7 @@ export default async function Page({ params: paramsPromise }: Args) {
 
       <div className='container mb-8'>
         <PageRange
+          locale={locale}
           collection='posts'
           currentPage={posts.page}
           limit={12}
@@ -56,7 +63,7 @@ export default async function Page({ params: paramsPromise }: Args) {
 
       <div className='container'>
         {posts?.page && posts?.totalPages > 1 && (
-          <Pagination page={posts.page} totalPages={posts.totalPages} />
+          <Pagination locale={locale} page={posts.page} totalPages={posts.totalPages} />
         )}
       </div>
     </div>

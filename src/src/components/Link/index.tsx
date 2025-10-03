@@ -1,5 +1,4 @@
 import { Button, type ButtonProps } from '@/components/ui/button'
-import { Link as i18nLink } from '@/i18n/routing'
 import { cn } from '@/utilities/ui'
 import React from 'react'
 
@@ -44,7 +43,9 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   if (!href) return null
 
   const finalHref = href || url || ''
-  const Link = finalHref.startsWith('/admin') ? NextLink : i18nLink
+  // TODO: When the NextLink actually makes problems related to routing configuration, find a fix for i18nLink caching issues
+  // const Link = finalHref.startsWith('/admin') ? NextLink : i18nLink
+  const Link = NextLink
 
   const size = appearance === 'link' ? 'clear' : sizeFromProps
   const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
