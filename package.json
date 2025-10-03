@@ -37,7 +37,6 @@
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-select": "^2.2.6",
     "@radix-ui/react-slot": "^1.2.3",
-    "@tailwindcss/postcss": "^4.1.13",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cross-env": "^10.0.0",
@@ -59,6 +58,8 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
+    "@tailwindcss/oxide": "^4.1.14",
+    "@tailwindcss/postcss": "^4.1.13",
     "@tailwindcss/typography": "^0.5.19",
     "@types/escape-html": "^1.0.4",
     "@types/node": "22.5.4",
@@ -80,8 +81,9 @@
   },
   "pnpm": {
     "onlyBuiltDependencies": [
-      "sharp",
+      "@tailwindcss/oxide",
       "esbuild",
+      "sharp",
       "unrs-resolver"
     ]
   }
