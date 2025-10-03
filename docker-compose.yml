@@ -8,9 +8,9 @@ services:
     tty: true
     pull_policy: always
     ports:
-      - "3000:3000"
-      - "9229:9229"
-      - "9230:9230"
+      - '3000:3000'
+      - '9229:9229'
+      - '9230:9230'
     volumes:
       - ./:/app
     depends_on:
@@ -20,13 +20,13 @@ services:
   postgres:
     image: postgres:17-alpine
     environment:
-      POSTGRES_USER: "payload"
-      POSTGRES_PASSWORD: "payload"
-      POSTGRES_DB: "payload"
+      POSTGRES_USER: 'payload'
+      POSTGRES_PASSWORD: 'payload'
+      POSTGRES_DB: 'payload'
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - '5432:5432'
 
 volumes:
   pgdata:
