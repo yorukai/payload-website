@@ -16,7 +16,7 @@ EXEC=$(COMPOSE) exec $(PAYLOAD_SERVICE)
 
 .PHONY: help
 help:
-	@MAKEFILES="$(MAKEFILE_LIST)" bash $(mkfile_dir)generate-makefile-help.sh
+	@MAKEFILES="$(MAKEFILE_LIST)" bash ./generate-makefile-help.sh
 
 ## @section Project Setup
 
@@ -36,17 +36,17 @@ git-hooks-install:
 # Initialize the environment file from the example and generate random secrets
 init-env:
 	echo "- $(INFO_COLOR)Initializing environment...$(CLEAR_STYLE)"
-	if [ -f src/.env ]; then \
-		echo -e "  $(WARNING_COLOR)Warning$(CLEAR_STYLE): src/.env file already exists. Skipping initialization."; \
+	if [ -f .env ]; then \
+		echo -e "  $(WARNING_COLOR)Warning$(CLEAR_STYLE): .env file already exists. Skipping initialization."; \
 	else \
-		cp src/.env.example src/.env && \
+		cp .env.example .env && \
 		payload_secret=$$(openssl rand -base64 32 | tr -dc 'a-zA-Z0-9' | head -c 32) && \
 		cron_secret=$$(openssl rand -base64 32 | tr -dc 'a-zA-Z0-9' | head -c 32) && \
 		preview_secret=$$(openssl rand -base64 32 | tr -dc 'a-zA-Z0-9' | head -c 32) && \
-		sed -i.bak "s|PAYLOAD_SECRET=YOUR_SECRET_HERE|PAYLOAD_SECRET=$$payload_secret|" src/.env && \
-		sed -i.bak "s|CRON_SECRET=YOUR_CRON_SECRET_HERE|CRON_SECRET=$$cron_secret|" src/.env && \
-		sed -i.bak "s|PREVIEW_SECRET=YOUR_SECRET_HERE|PREVIEW_SECRET=$$preview_secret|" src/.env && \
-		rm -f src/.env.bak; \
+		sed -i.bak "s|PAYLOAD_SECRET=YOUR_SECRET_HERE|PAYLOAD_SECRET=$$payload_secret|" .env && \
+		sed -i.bak "s|CRON_SECRET=YOUR_CRON_SECRET_HERE|CRON_SECRET=$$cron_secret|" .env && \
+		sed -i.bak "s|PREVIEW_SECRET=YOUR_SECRET_HERE|PREVIEW_SECRET=$$preview_secret|" .env && \
+		rm -f .env.bak; \
 	fi
 
 ## @section Docker Development
