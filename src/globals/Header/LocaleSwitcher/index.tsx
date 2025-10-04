@@ -37,7 +37,7 @@ export function LocaleSwitcher({ label }: Readonly<{ label?: string }>) {
   return (
     <Select onValueChange={onSelectChange} value={locale}>
       <SelectTrigger
-        className='text-primary w-auto gap-2 border-none bg-transparent pl-0 text-sm md:pl-3'
+        className='w-auto gap-2 border-none bg-transparent pl-0 text-sm text-primary md:pl-3'
         aria-label={label}
       >
         <SelectValue placeholder='Locale' />

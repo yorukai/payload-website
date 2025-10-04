@@ -8,5 +8,7 @@
   "jsxSingleQuote": true,
   "trailingComma": "all",
   "bracketSpacing": true,
-  "bracketSameLine": false
+  "bracketSameLine": false,
+  "tailwindStylesheet": "./src/app/(frontend)/[locale]/globals.css",
+  "tailwindFunctions": ["clsx", "cn", "cva"]
 }

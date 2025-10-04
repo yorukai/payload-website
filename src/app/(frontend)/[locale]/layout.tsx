@@ -56,7 +56,7 @@ export default async function RootLayout({ children, params }: Args) {
         <link href='/favicon.ico' rel='icon' sizes='32x32' />
         <link href='/favicon.svg' rel='icon' type='image/svg+xml' />
       </head>
-      <body className='bg-background text-foreground flex min-h-[100vh] flex-col'>
+      <body className='flex min-h-[100vh] flex-col bg-background text-foreground'>
         <Providers>
           <NextIntlClientProvider messages={messages}>
             <AdminBar
