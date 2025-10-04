@@ -15,7 +15,7 @@ type Props = {
 }
 
 export async function Header({ locale }: Readonly<Props>) {
-  const header: Header = await getCachedGlobal('header', locale, 1)()
+  const header: Header = await getCachedGlobal('header', locale, 1)
   const t = await getTranslations()
 
   return (

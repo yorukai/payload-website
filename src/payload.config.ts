@@ -1,5 +1,8 @@
 // storage-adapter-import-placeholder
+import { SEO } from '@/globals/SEO/config'
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { de } from '@payloadcms/translations/languages/de'
+import { en } from '@payloadcms/translations/languages/en'
 
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
@@ -56,6 +59,11 @@ export default buildConfig({
       ],
     },
   },
+  serverURL: getServerSideURL(),
+  i18n: {
+    fallbackLanguage: 'en',
+    supportedLanguages: { en, de },
+  },
   localization,
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
@@ -67,7 +75,7 @@ export default buildConfig({
   collections: [Pages, Posts, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
   csrf: [getServerSideURL()].filter(Boolean),
-  globals: [Header, Footer],
+  globals: [Header, Footer, SEO],
   plugins: [
     ...plugins,
     // storage-adapter-placeholder

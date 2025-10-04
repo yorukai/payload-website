@@ -1,5 +1,7 @@
+export const defaultLocale = 'de'
+
 const localization = {
-  defaultLocale: 'de',
+  defaultLocale: defaultLocale,
   fallback: true,
   locales: [
     {

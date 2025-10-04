@@ -29,6 +29,16 @@ import {
 
 export const Posts: CollectionConfig<'posts'> = {
   slug: 'posts',
+  labels: {
+    singular: {
+      en: 'Post',
+      de: 'Beitrag',
+    },
+    plural: {
+      en: 'Posts',
+      de: 'Beiträge',
+    },
+  },
   access: {
     create: authenticated,
     delete: authenticated,
@@ -50,16 +60,13 @@ export const Posts: CollectionConfig<'posts'> = {
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
-      url: ({ data, locale, req }) => {
-        const path = generatePreviewPath({
+      url: ({ data, locale, req }) =>
+        generatePreviewPath({
           slug: typeof data?.slug === 'string' ? data.slug : '',
           collection: 'posts',
           locale: locale.code,
           req,
-        })
-
-        return path
-      },
+        }),
     },
     preview: (data, { locale, req }) =>
       generatePreviewPath({
@@ -73,6 +80,10 @@ export const Posts: CollectionConfig<'posts'> = {
   fields: [
     {
       name: 'title',
+      label: {
+        en: 'Title',
+        de: 'Titel',
+      },
       type: 'text',
       localized: true,
       required: true,
@@ -81,14 +92,23 @@ export const Posts: CollectionConfig<'posts'> = {
       type: 'tabs',
       tabs: [
         {
+          label: {
+            en: 'Content',
+            de: 'Inhalt',
+          },
           fields: [
             {
               name: 'heroImage',
+              label: {
+                en: 'Hero Image',
+                de: 'Hero Bild',
+              },
               type: 'upload',
               relationTo: 'media',
             },
             {
               name: 'content',
+              label: false,
               type: 'richText',
               localized: true,
               editor: lexicalEditor({
@@ -103,16 +123,19 @@ export const Posts: CollectionConfig<'posts'> = {
                   ]
                 },
               }),
-              label: false,
               required: true,
             },
           ],
-          label: 'Content',
         },
         {
+          label: 'Meta',
           fields: [
             {
               name: 'relatedPosts',
+              label: {
+                en: 'Related Posts',
+                de: 'Ähnliche Beiträge',
+              },
               type: 'relationship',
               admin: {
                 position: 'sidebar',
@@ -129,6 +152,10 @@ export const Posts: CollectionConfig<'posts'> = {
             },
             {
               name: 'categories',
+              label: {
+                en: 'Categories',
+                de: 'Kategorien',
+              },
               type: 'relationship',
               admin: {
                 position: 'sidebar',
@@ -137,7 +164,6 @@ export const Posts: CollectionConfig<'posts'> = {
               relationTo: 'categories',
             },
           ],
-          label: 'Meta',
         },
         {
           name: 'meta',
@@ -170,6 +196,10 @@ export const Posts: CollectionConfig<'posts'> = {
     },
     {
       name: 'publishedAt',
+      label: {
+        en: 'Published Date',
+        de: 'Veröffentlichungsdatum',
+      },
       type: 'date',
       admin: {
         date: {
@@ -190,6 +220,10 @@ export const Posts: CollectionConfig<'posts'> = {
     },
     {
       name: 'authors',
+      label: {
+        en: 'Authors',
+        de: 'Autoren',
+      },
       type: 'relationship',
       admin: {
         position: 'sidebar',

@@ -1,11 +1,16 @@
 import configPromise from '@payload-config'
-import { unstable_cache } from 'next/cache'
 import { getPayload, TypedLocale } from 'payload'
 import type { Config } from 'src/payload-types'
+import { cacheLife, cacheTag } from './cache'
 
-type Global = keyof Config['globals']
+type Globals = Config['globals']
+type Global = keyof Globals
 
-async function getGlobal(slug: Global, locale: TypedLocale, depth = 0) {
+async function getGlobal<TSlug extends Global>(
+  slug: TSlug,
+  locale: TypedLocale,
+  depth = 0,
+): Promise<Globals[TSlug]> {
   const payload = await getPayload({ config: configPromise })
 
   return await payload.findGlobal({
@@ -18,7 +23,14 @@ async function getGlobal(slug: Global, locale: TypedLocale, depth = 0) {
 /**
  * Returns a unstable_cache function mapped with the cache tag for the slug
  */
-export const getCachedGlobal = (slug: Global, locale: TypedLocale, depth = 0) =>
-  unstable_cache(async () => getGlobal(slug, locale, depth), [slug, locale], {
-    tags: [`global_${slug}`],
-  })
+export async function getCachedGlobal<TSlug extends Global>(
+  slug: TSlug,
+  locale: TypedLocale,
+  depth = 0,
+): Promise<Globals[TSlug]> {
+  'use cache'
+  cacheTag('global', slug)
+  cacheLife('weeks')
+
+  return await getGlobal(slug, locale, depth)
+}

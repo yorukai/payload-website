@@ -4,6 +4,7 @@ import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import RichText from '@/components/RichText'
 import { PostHero } from '@/heros/PostHero'
+import { defaultLocale } from '@/i18n/localization'
 import { cacheLife, cacheTag, noStore } from '@/utilities/cache'
 import { generateMeta } from '@/utilities/generateMeta'
 import configPromise from '@payload-config'
@@ -42,7 +43,7 @@ export default async function Post({ params: paramsPromise }: Args) {
   'use cache'
 
   const { isEnabled: draft } = await draftMode()
-  const { slug = '', locale = 'de' } = await paramsPromise
+  const { slug = '', locale = defaultLocale } = await paramsPromise
 
   if (draft) {
     noStore()
@@ -54,14 +55,14 @@ export default async function Post({ params: paramsPromise }: Args) {
   const url = '/posts/' + slug
   const post = await queryPost({ slug, locale })
 
-  if (!post) return <PayloadRedirects url={url} />
+  if (!post) return <PayloadRedirects url={url} locale={locale} />
 
   return (
     <article className='pt-16 pb-16'>
       <PageClient />
 
       {/* Allows redirects for valid pages too */}
-      <PayloadRedirects disableNotFound url={url} />
+      <PayloadRedirects disableNotFound url={url} locale={locale} />
 
       {draft && <LivePreviewListener />}
 
@@ -83,10 +84,10 @@ export default async function Post({ params: paramsPromise }: Args) {
 }
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
-  const { slug = '', locale = 'de' } = await paramsPromise
+  const { slug = '', locale = defaultLocale } = await paramsPromise
   const post = await queryPost({ slug, locale })
 
-  return generateMeta({ doc: post })
+  return generateMeta({ doc: post, locale })
 }
 
 const queryPost = cache(async ({ slug, locale }: { slug: string; locale: TypedLocale }) => {

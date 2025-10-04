@@ -1,5 +1,8 @@
+'use client'
+
 import { Button, type ButtonProps } from '@/components/ui/button'
 import { cn } from '@/utilities/ui'
+import { useLocale } from 'next-intl'
 import React from 'react'
 
 import type { Page, Post } from '@/payload-types'
@@ -32,40 +35,37 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     size: sizeFromProps,
     url,
   } = props
+  const locale = useLocale()
+
+  const referencePath = reference?.relationTo !== 'pages' ? `/${reference?.relationTo}` : ''
 
   const href =
     type === 'reference' && typeof reference?.value === 'object' && reference.value.slug
-      ? `${reference?.relationTo !== 'pages' ? `/${reference?.relationTo}` : ''}/${
-          reference.value.slug
-        }`
+      ? `/${locale}${referencePath}/${reference.value.slug}`
       : url
 
   if (!href) return null
 
   const finalHref = href || url || ''
-  // TODO: When the NextLink actually makes problems related to routing configuration, find a fix for i18nLink caching issues
-  // const Link = finalHref.startsWith('/admin') ? NextLink : i18nLink
-  const Link = NextLink
-
   const size = appearance === 'link' ? 'clear' : sizeFromProps
   const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
 
   /* Ensure we don't break any styles set by richText */
   if (appearance === 'inline') {
     return (
-      <Link className={cn(className)} href={finalHref} {...newTabProps}>
+      <NextLink className={cn(className)} href={finalHref} {...newTabProps}>
         {label && label}
         {children && children}
-      </Link>
+      </NextLink>
     )
   }
 
   return (
     <Button asChild className={className} size={size} variant={appearance}>
-      <Link className={cn(className)} href={finalHref} {...newTabProps}>
+      <NextLink className={cn(className)} href={finalHref} {...newTabProps}>
         {label && label}
         {children && children}
-      </Link>
+      </NextLink>
     </Button>
   )
 }

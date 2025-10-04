@@ -1,5 +1,3 @@
-import type { CollectionConfig } from 'payload'
-
 import { authenticated } from '@/access/authenticated'
 import { authenticatedOrPublished } from '@/access/authenticatedOrPublished'
 import { Archive } from '@/blocks/ArchiveBlock/config'
@@ -11,7 +9,6 @@ import { slugField } from '@/fields/slug'
 import { hero } from '@/heros/config'
 import { populatePublishedAt } from '@/hooks/populatePublishedAt'
 import { generatePreviewPath } from '@/utilities/generatePreviewPath'
-import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
 
 import {
   MetaDescriptionField,
@@ -20,9 +17,21 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
+import type { CollectionConfig } from 'payload'
+import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
+  labels: {
+    singular: {
+      en: 'Page',
+      de: 'Seite',
+    },
+    plural: {
+      en: 'Pages',
+      de: 'Seiten',
+    },
+  },
   access: {
     create: authenticated,
     delete: authenticated,
@@ -39,16 +48,13 @@ export const Pages: CollectionConfig<'pages'> = {
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
-      url: ({ data, locale, req }) => {
-        const path = generatePreviewPath({
+      url: ({ data, locale, req }) =>
+        generatePreviewPath({
           slug: typeof data?.slug === 'string' ? data.slug : '',
           collection: 'pages',
           locale: locale.code,
           req,
-        })
-
-        return path
-      },
+        }),
     },
     preview: (data, { locale, req }) =>
       generatePreviewPath({
@@ -62,6 +68,10 @@ export const Pages: CollectionConfig<'pages'> = {
   fields: [
     {
       name: 'title',
+      label: {
+        en: 'Title',
+        de: 'Titel',
+      },
       localized: true,
       type: 'text',
       required: true,
@@ -70,10 +80,14 @@ export const Pages: CollectionConfig<'pages'> = {
       type: 'tabs',
       tabs: [
         {
-          fields: [hero],
           label: 'Hero',
+          fields: [hero],
         },
         {
+          label: {
+            en: 'Content',
+            de: 'Inhalt',
+          },
           fields: [
             {
               name: 'layout',
@@ -86,7 +100,6 @@ export const Pages: CollectionConfig<'pages'> = {
               },
             },
           ],
-          label: 'Content',
         },
         {
           name: 'meta',
@@ -119,6 +132,10 @@ export const Pages: CollectionConfig<'pages'> = {
     },
     {
       name: 'publishedAt',
+      label: {
+        en: 'Published Date',
+        de: 'Veröffentlichungsdatum',
+      },
       type: 'date',
       admin: {
         position: 'sidebar',

@@ -1,4 +1,4 @@
-import type { CollectionSlug, GlobalSlug, Payload, PayloadRequest } from 'payload'
+import type { CollectionSlug, Payload, PayloadRequest } from 'payload'
 
 import fs from 'fs'
 import path from 'path'
@@ -27,7 +27,6 @@ const collections: CollectionSlug[] = [
   'form-submissions',
   // 'search', TO-DO: enable again!
 ]
-const globals: GlobalSlug[] = ['header', 'footer']
 
 // Next.js revalidation errors are normal when seeding the database without a server running
 // i.e. running `yarn seed` locally instead of using the admin UI within an active app
@@ -58,15 +57,21 @@ export const seed = async ({
   payload.logger.info(`— Clearing collections and globals...`)
 
   // clear the database
-  for (const global of globals) {
-    await payload.updateGlobal({
-      slug: global,
-      data: {
-        navItems: [],
-      },
-      req,
-    })
-  }
+  await payload.updateGlobal({
+    slug: 'header',
+    data: {
+      navItems: [],
+    },
+    req,
+  })
+
+  await payload.updateGlobal({
+    slug: 'footer',
+    data: {
+      navItems: [],
+    },
+    req,
+  })
 
   for (const collection of collections) {
     await payload.delete({
@@ -515,7 +520,10 @@ export const seed = async ({
           link: {
             type: 'custom',
             label: 'Home',
-            url: '/',
+            reference: {
+              relationTo: 'pages',
+              value: homePage.id,
+            },
           },
         },
         {
@@ -542,19 +550,22 @@ export const seed = async ({
           id: header.navItems![0].id,
           link: {
             type: 'custom',
-            url: '/',
             label: 'Home',
+            reference: {
+              relationTo: 'pages',
+              value: homePage.id,
+            },
           },
         },
         {
           id: header.navItems![1].id,
           link: {
             type: 'reference',
+            label: 'Contact',
             reference: {
               relationTo: 'pages',
               value: contactPage.id,
             },
-            label: 'Contact',
           },
         },
       ],

@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import { homeStatic } from '@/endpoints/seed/home-static'
+import { defaultLocale } from '@/i18n/localization'
 import configPromise from '@payload-config'
 import { draftMode } from 'next/headers'
 import { getPayload, type RequiredDataFromCollectionSlug } from 'payload'
@@ -48,7 +49,7 @@ export default async function Page({ params: paramsPromise }: Args) {
   'use cache'
 
   const { isEnabled: draft } = await draftMode()
-  const { slug = 'home', locale = 'de' } = await paramsPromise
+  const { slug = 'home', locale = defaultLocale } = await paramsPromise
 
   if (draft) {
     noStore()
@@ -72,7 +73,7 @@ export default async function Page({ params: paramsPromise }: Args) {
   }
 
   if (!page) {
-    return <PayloadRedirects url={url} />
+    return <PayloadRedirects url={url} locale={locale} />
   }
 
   const { hero, layout } = page
@@ -81,7 +82,7 @@ export default async function Page({ params: paramsPromise }: Args) {
     <article className='pt-16 pb-24'>
       <PageClient />
       {/* Allows redirects for valid pages too */}
-      <PayloadRedirects disableNotFound url={url} />
+      <PayloadRedirects disableNotFound url={url} locale={locale} />
 
       {draft && <LivePreviewListener />}
 
@@ -92,13 +93,13 @@ export default async function Page({ params: paramsPromise }: Args) {
 }
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
-  const { slug = 'home', locale = 'de' } = await paramsPromise
+  const { slug = 'home', locale = defaultLocale } = await paramsPromise
   const page = await queryPage({
     slug,
     locale,
   })
 
-  return generateMeta({ doc: page })
+  return generateMeta({ doc: page, locale })
 }
 
 const queryPage = cache(async ({ slug, locale }: { slug: string; locale: TypedLocale }) => {

@@ -1,10 +1,10 @@
 #!/bin/bash
 set -e
 
-ERROR_COLOR=$(tput setaf 1)
-COMMAND_COLOR=$(tput setaf 4)
-UNCOMMITTED_COLOR=$(tput setaf 8)
-RESET_STYLE=$(tput sgr0)
+ERROR_COLOR="\033[31m"
+COMMAND_COLOR="\033[34m"
+UNCOMMITTED_COLOR="\033[90m"
+RESET_STYLE="\033[0m"
 
 # Check if payload docker is running and if not, print a error message
 if [ "$(docker compose ps -q payload | wc -l)" -eq 0 ]; then

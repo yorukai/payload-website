@@ -8,6 +8,7 @@ import {
 
 const cacheTags = {
   sitemap: (collection: string): string => `sitemap:${collection}`,
+  global: (slug: string): string => `global:${slug}`,
   page: (slug: string): string => `page:${slug}`,
   posts: 'posts',
   post: (slug: string): string => `post:${slug}`,

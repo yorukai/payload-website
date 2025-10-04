@@ -8,10 +8,11 @@ import { notFound, redirect } from 'next/navigation'
 interface Props {
   disableNotFound?: boolean
   url: string
+  locale: string
 }
 
 /* This component helps us with SSR based dynamic redirects */
-export const PayloadRedirects: React.FC<Props> = async ({ disableNotFound, url }) => {
+export const PayloadRedirects: React.FC<Props> = async ({ disableNotFound, url, locale }) => {
   const redirects = await getCachedRedirects()()
 
   const redirectItem = redirects.find((redirect) => redirect.from === url)
@@ -22,17 +23,19 @@ export const PayloadRedirects: React.FC<Props> = async ({ disableNotFound, url }
     }
 
     let redirectUrl: string
+    const referencePath =
+      redirectItem.to?.reference?.relationTo !== 'pages'
+        ? `/${redirectItem.to?.reference?.relationTo}`
+        : ''
 
     if (typeof redirectItem.to?.reference?.value === 'string') {
       const collection = redirectItem.to?.reference?.relationTo
       const id = redirectItem.to?.reference?.value
 
       const document = (await getCachedDocument(collection, id)()) as Page | Post
-      redirectUrl = `${redirectItem.to?.reference?.relationTo !== 'pages' ? `/${redirectItem.to?.reference?.relationTo}` : ''}/${
-        document?.slug
-      }`
+      redirectUrl = `/${locale}${referencePath}/${document?.slug}`
     } else {
-      redirectUrl = `${redirectItem.to?.reference?.relationTo !== 'pages' ? `/${redirectItem.to?.reference?.relationTo}` : ''}/${
+      redirectUrl = `/${locale}${referencePath}/${
         typeof redirectItem.to?.reference?.value === 'object'
           ? redirectItem.to?.reference?.value?.slug
           : ''

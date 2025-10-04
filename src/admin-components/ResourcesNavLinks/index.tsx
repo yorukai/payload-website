@@ -1,13 +1,12 @@
 import { NavGroup } from '@payloadcms/ui'
 import Link from 'next/link.js'
-import React from 'react'
 
-export type ResourcesLink = {
+type ResourcesLink = {
   href: string
   label: string
 }
 
-const ResourcesNavLinks: React.FC = () => {
+export default function ResourcesNavLinks() {
   const links: ResourcesLink[] = [
     {
       href: 'https://payloadcms.com/docs',
@@ -41,5 +40,3 @@ const ResourcesNavLinks: React.FC = () => {
     </NavGroup>
   )
 }
-
-export default ResourcesNavLinks

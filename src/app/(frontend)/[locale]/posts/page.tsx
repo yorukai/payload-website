@@ -5,6 +5,7 @@ import type { Metadata } from 'next/types'
 import { CollectionArchive } from '@/components/CollectionArchive'
 import { PageRange } from '@/components/PageRange'
 import { Pagination } from '@/components/Pagination'
+import { defaultLocale } from '@/i18n/localization'
 import configPromise from '@payload-config'
 import { getPayload, TypedLocale } from 'payload'
 import PageClient from './page.client'
@@ -20,7 +21,7 @@ export default async function Page({ params }: Args) {
   cacheTag('posts')
   cacheLife('days')
 
-  const { locale = 'de' } = await params
+  const { locale = defaultLocale } = await params
   const t = await getTranslations({ locale })
   const payload = await getPayload({ config: configPromise })
 
